@@ -33,8 +33,7 @@ Rake::TestTask.new("benchmark") { |t|
 
 desc "Generate rdoc documentation"
 Rake::RDocTask.new do |rd|
-  rd.main = 'README'
-  rd.options += [ '-f', 'darkfish', '-c', 'utf-8']
+  rd.options += [ '-f', 'darkfish', '-w', '4', '-m', 'README']
   rd.rdoc_dir = "doc"
   rd.rdoc_files.include('README', 'License', 'mds/**/*.rb')
 end
