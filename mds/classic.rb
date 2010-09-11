@@ -28,11 +28,10 @@ module MDS
       eval, evec = b.eigen_decomposition
       dims = Classic.find_dimensionality(eval, k)
       
-      n = d.row_size
-      mm = Matrix.diagonal(*[1.0/Math.sqrt(1.0/n)]*n)
-      ll = Matrix.diagonal(*eval.diagonals.map {|i| Math.sqrt(i)})
-      ll = ll.minor(0..(n-1), 0..(dims-1))
-      evec * ll
+      lambda = Matrix.diagonal(*eval.diagonals.map {|i| Math.sqrt(i) if i > 0.0})
+      lambda = lambda.minor(0..(lambda.row_size-1), 0..(dims-1))
+
+      evec * lambda
     end
     
     
