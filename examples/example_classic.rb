@@ -36,8 +36,11 @@ diff = Matrix.l2_distances_squared(x_proj) - d
   #     [0.0 0.0 0.0]]
   
 # If less accuracy of preserved distances is needed,
-# the dimensionality of embedding can change to fewer
-# dimensions.
+# one may lower the percentage. In our case, 80% are
+# reflected in an embedding with just one dimension.
+#
+# If you look at the original input, X, this is true,
+# since all points are close be colinear.
 
 x_proj = MDS::Classic.project(d, 0.8) 
   # => [[-0.60],
