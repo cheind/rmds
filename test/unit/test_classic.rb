@@ -24,4 +24,12 @@ class TestClassic < Test::Unit::TestCase
     assert(Matrix.equal_in_delta?(d, d_proj))
   end
   
+  def test_5d
+    x = Matrix.random(15, 5, -10, 10)
+    d = Matrix.l2_distances_squared(x)
+    proj = MDS::Classic.project(d, 0.99)
+    d_proj = Matrix.l2_distances_squared(proj)
+    assert(Matrix.equal_in_delta?(d, d_proj, 1e-5))
+  end
+  
 end

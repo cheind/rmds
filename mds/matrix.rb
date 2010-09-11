@@ -43,4 +43,20 @@ class Matrix
     
     [Matrix.diagonal(*s_eigen_values), Matrix.columns(s_eigen_vectors)]
   end
+  
+  #
+  # Generate a matrix of size +N+x+M+ whose components
+  # are random numbers in the range of [+min+,+max+].
+  #
+  def Matrix.random(n, m, min = 0.0, max = 1.0)
+    rows = []
+    n.times do
+      row = []
+      m.times do
+        row << (min + (max-min)*rand())
+      end
+      rows << row
+    end
+    Matrix[*rows]
+  end
 end
