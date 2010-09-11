@@ -5,6 +5,7 @@ This package contains the module MDS, a library for multidimensional scaling. Mu
 Classical MDS is the only variant of MDS currently offered by mdsl.
 
 = Simple Example
+Here's an example of how to perform classical MDS on a given distance matrix.
   :include:examples/example_classic.rb
  
 = Requirements
