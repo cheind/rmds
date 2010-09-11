@@ -7,7 +7,7 @@
 require 'test/unit'
 require 'mds'
 
-class TestClassical < Test::Unit::TestCase
+class TestClassic < Test::Unit::TestCase
   
   def test_2d
     x = Matrix.rows([
@@ -17,9 +17,10 @@ class TestClassical < Test::Unit::TestCase
     ])
     
     d = Matrix.l2_distances_squared(x)
-    c = MDS::Classical.new(d)
-    proj = c.project(d, c.min_dims(0.99))
+    
+    proj = MDS::Classic.project(d, 0.99)
     d_proj = Matrix.l2_distances_squared(proj)
+    
     assert(Matrix.equal_in_delta?(d, d_proj))
   end
   

@@ -17,13 +17,6 @@ Rake::TestTask.new("test") { |t|
   t.warning = false
 }
 
-desc "Run acceptance tests"
-Rake::TestTask.new("acceptance") { |t|
-  t.pattern = FileList['test/acceptance/acc_*.rb']
-  t.verbose = false
-  t.warning = false
-}
-
 desc "Run benchmarks"
 Rake::TestTask.new("benchmark") { |t|
   t.pattern = FileList['test/benchmark/benchmark_*.rb']

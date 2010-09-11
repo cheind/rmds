@@ -5,26 +5,11 @@ This package contains the module MDS, a library for multidimensional scaling. Mu
 Classical MDS is the only variant of MDS currently offered by mdsl.
 
 = Simple Example
-The sample below is actually a test. Given coordinates of three elements in two-dimensional space, calculate the squared Euclidean inter-distance matrix between the elements. Then, use MDS to yield coordinates again in a space that captures 99% of the variances of all distances. Finally, assert that the resulting coordinates preserve the original distances.
-
-  require 'mds'
-  
-  x = Matrix.rows([
-    [1.0, 2.0], 
-    [4.0, 3.0],
-    [0.0, 1.0]
-  ])
-    
-  d = Matrix.l2_distances_squared(x)
-  c = MDS::Classical.new(d)
-  proj = c.project(d, c.min_dims(0.99))
-  d_proj = Matrix.l2_distances_squared(proj)
-  
-  assert(Matrix.equal_in_delta?(d, d_proj))
+  :include:examples/example_classic.rb
  
 = Requirements
 Non except Ruby. This distribution was tested on Ruby 1.8.6 and Ruby 1.9.1.
- 
+
 = License
 RCapture is Copyright (c) 2010 Christoph Heindl. It is free software, and may be redistributed under the terms 
 specified in the {License}[link:files/License.html] file.

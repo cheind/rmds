@@ -6,7 +6,7 @@
 
 require 'mds/matrix'
 require 'mds/distance_matrix'
-require 'mds/classical'
+require 'mds/classic'
 
 
 
