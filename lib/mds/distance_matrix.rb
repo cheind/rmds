@@ -9,11 +9,12 @@ require 'mds/matrix'
 class Matrix
   
   #
-  # Returns the squared Euclidean distance matrix, +D+,
+  # Calculates the squared Euclidean distance matrix, +D+,
   # containing the pairwise squared Euclidean distances of
-  # all observations given as rows of +X+.
+  # given observations.
   #
-  # If +X+ is NxM then +D+ is NxN.
+  # @param [Matrix] x matrix of observations in rows.
+  # @return [Matrix] squared Euclidean distance matrix of observations
   #
   def Matrix.l2_distances_squared(x)
     # Product of x with transpose of x
