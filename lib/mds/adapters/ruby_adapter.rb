@@ -20,6 +20,9 @@ module MDS
   #
   class RubyAdapter < MatrixAdapter
     
+    #
+    # @param (see MatrixAdapter#create_scalar)
+    #
     def create_scalar(n, m, s)
       raise NotImplementedError
     end

@@ -28,7 +28,7 @@ module MDS
     #
     # Create a new matrix with uniform random elements.
     #
-    # Default implementation invokes #create_scalar and
+    # Default implementation invokes MatrixAdapter#create_scalar and
     # sets elements individually.
     #
     # @param [Integer] n the number of rows
