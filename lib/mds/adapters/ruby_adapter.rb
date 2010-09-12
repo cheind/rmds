@@ -15,36 +15,64 @@ end
 module MDS
   
   #
-  # Adaptor for standard ruby matrices.
+  # Adapterr for standard ruby matrices.
   # 
   #
   class RubyAdapter < MatrixAdapter
     
     #
+    # Create a new matrix with equal elements.
+    #
     # @param (see MatrixAdapter#create_scalar)
     #
     def create_scalar(n, m, s)
-      raise NotImplementedError
+      ::Matrix.build(n, m, s)
     end
     
+    #
+    # Set matrix element.
+    #
+    # @param (see MatrixAdapter#set)
+    #
     def set(m, i, j, s)
-      raise NotImplementedError
+      m[i,j] = s
     end
     
+    #
+    # Get matrix element.
+    #
+    # @param (see MatrixAdapter#get)
+    #
     def get(m, i, j)
-      raise NotImplementedError
+      m[i,j]
     end
     
+    #
+    # Calculate the product of two matrices or
+    # the product of a matrix and a scalar.
+    #
+    # @param (see MatrixAdapter#prod)
+    #
     def prod(m, n)
-      raise NotImplementedError
+      m * n
     end
     
+    #
+    # Componentwise addition of two matrices.
+    #
+    # @param (see MatrixAdapter#add)
+    #
     def add(m, n)
-      raise NotImplementedError
+      m + n
     end
     
+    #
+    # Componentwise subtraction of two matrices.
+    #
+    # @param (see MatrixAdapter#sub)
+    #
     def sub(m, n)
-      raise NotImplementedError
+      m - n
     end
     
   end
