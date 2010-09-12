@@ -14,6 +14,7 @@ Requirements
 ---------------
 Non except Ruby. This distribution was tested on Ruby 1.8.6 and Ruby 1.9.1.
 
-= License
+License
+---------------
 rmds is Copyright (c) 2010 Christoph Heindl. It is free software, and may be redistributed under the terms 
 specified in the [License](http://github.com/cheind/rmds/raw/master/License) file.
