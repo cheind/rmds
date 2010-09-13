@@ -45,7 +45,7 @@ class TestRubyAdapter < Test::Unit::TestCase
   def test_create_identity
    m = @ma.create_identity(4)
    r = Matrix.identity(4)
-   assert_equal_matrices?(@ma, m, r)
+   assert_equal_matrices(@ma, m, r)
   end
   
   def test_get_set
@@ -67,11 +67,11 @@ class TestRubyAdapter < Test::Unit::TestCase
     
     r = @ma.prod(a,b)
     g = a * b
-    assert_equal_matrices?(@ma, r, g)
+    assert_equal_matrices(@ma, r, g)
         
     r = @ma.prod(a, 2.0)
     g = a * 2.0
-    assert_equal_matrices?(@ma, r, g)
+    assert_equal_matrices(@ma, r, g)
   end
   
   def test_add
@@ -80,7 +80,7 @@ class TestRubyAdapter < Test::Unit::TestCase
     
     r = @ma.add(a, b)
     g = a + b
-    assert_equal_matrices?(@ma, r, g)
+    assert_equal_matrices(@ma, r, g)
   end
   
   def test_sub
@@ -89,15 +89,15 @@ class TestRubyAdapter < Test::Unit::TestCase
     
     r = @ma.sub(a, b)
     g = a - b
-    assert_equal_matrices?(@ma, r, g)
+    assert_equal_matrices(@ma, r, g)
   end
   
   def test_t
     a = @ma.create_random(2, 3)
     t = @ma.t(a)
-    assert_equal_matrices?(@ma, t, a.t)
+    assert_equal_matrices(@ma, t, a.t)
   end
-  
+    
   def test_ed
     a = @ma.create_scalar(3, 3, 0.0)
 

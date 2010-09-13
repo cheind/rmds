@@ -4,8 +4,6 @@
 # http://github.com/cheind/rmds
 #
 
-require 'mds/matrix'
-
 module MDS
 
   #
@@ -22,31 +20,37 @@ module MDS
     #
     # The result is a matrix +F+ of dimensionality NxM, where N is the size of
     # +D+ and M equals +dims+.
-    # 
-    def Classic.project(d, k)
-      b = Classic.shift(d)
-      eval, evec = b.eigen_decomposition
-      dims = Classic.find_dimensionality(eval, k)
+    #
+    # @param [MatrixAdapter] ma matrix adapter to use
+    # @param d squared distance matrix +D+
+    # @param [Float] k percent [0..1] of variances in distances to keep in embedding.
+    # @return matrix containing the Cartesian embedding.
+    #
+    def Classic.project(ma, d, k)
+      b = Classic.shift(ma, d)
+      eval, evec = ma.ed(b)
+      dims = Classic.find_dimensionality(ma, eval, k)
       
-      lambda = Matrix.diagonal(*eval.diagonals.map {|i| Math.sqrt(i) if i > 0.0})
-      lambda = lambda.minor(0..(lambda.row_size-1), 0..(dims-1))
-
-      evec * lambda
+      diags = ma.diagonals(eval).map {|i| Math.sqrt(i) if i > 0.0}
+      lam = ma.create_diagonal(*diags) 
+      lam = ma.minor(lam, 0..(ma.nrows(lam)-1), 0..(dims-1))
+      ma.prod(evec,lam)
     end
     
     
     protected 
     
-    def Classic.shift(d)
-      n = d.row_size
+    def Classic.shift(ma, d)
+      n = ma.nrows(d)
       # Nx1 matrix of ones
-      ones = Matrix.columns([[1.0]*n])
+      ones = ma.create_scalar(n, 1, 1.0)
       # 1xN weight vector
-      m = Matrix.rows([[1.0/n]*n])
+      m = ma.create_scalar(1, n, 1.0/n)
       # NxN centering matrix
-      xi = Matrix.identity(n) - ones * m
+      xi = ma.sub(ma.create_identity(n), ma.prod(ones, m))
       # NxN shifted distances matrix, B
-      (xi * d * xi.t) * -0.5
+      # (xi * d * xi.t) * -0.5
+      ma.prod(ma.prod(xi, ma.prod(d, ma.t(xi))), -0.5)
     end
 
     
@@ -54,16 +58,16 @@ module MDS
     # Find the dimensionality of the resulting coordinate space so that
     # at least +k+ percent of the variance of the distances is preserved.
     #
-    def Classic.find_dimensionality(eval, k)
-      n = eval.row_size
-      sum_ev = eval.trace
+    def Classic.find_dimensionality(ma, eval, k)
+      n = ma.nrows(eval)
+      sum_ev = ma.trace(eval)
       
       i = 0
       sum = 0
       while ((i < n) && 
-             (eval[i,i] > 0.0) && 
+             (ma.get(eval,i,i) > 0.0) && 
              (sum / sum_ev) < k)
-        sum += eval[i,i]
+        sum += ma.get(eval,i,i)
         i += 1
       end
       i

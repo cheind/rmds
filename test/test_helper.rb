@@ -9,6 +9,9 @@ $:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'test/unit'
 require 'mds'
 
+#
+# Addition assertions for comparing matrices.
+#
 module MatrixAssertions
 
   #
@@ -18,7 +21,7 @@ module MatrixAssertions
   # @param a first matrix
   # @param b second matrix
   #
-  def assert_equal_matrices?(ma, a, b)
+  def assert_equal_matrices(ma, a, b)
     assert_instance_of(a.class, b)
     assert(ma.nrows(a), ma.nrows(b))
     assert(ma.ncols(a), ma.ncols(b))
@@ -29,5 +32,73 @@ module MatrixAssertions
       end
     end
   end
-  
+end
+
+
+require 'matrix'
+
+class Matrix
+
+  #
+  # Set element
+  #
+  def []=(i, j, x)
+    @rows[i][j] = x
+  end
+end
+
+module MDS
+  module Test
+
+    #
+    # Test matrix adapter to avoid external dependencies in tests.
+    #
+    class StdMatrixAdapter < MDS::MatrixAdapter
+
+      def create_scalar(n, m, s)
+        rows = []
+        n.times do
+          row = []
+          m.times do
+            row << s
+          end
+          rows << row
+        end
+        ::Matrix[*rows]
+      end
+
+      def nrows(m)
+        m.row_size
+      end
+      
+      def ncols(m)
+        m.column_size
+      end
+     
+      def set(m, i, j, s)
+        m[i,j] = s
+      end
+      
+      def get(m, i, j)
+        m[i,j]
+      end
+      
+      def prod(m, n)
+        m * n
+      end
+      
+      def t(m)
+        m.t
+      end
+      
+      def add(m, n)
+        m + n
+      end
+      
+      def sub(m, n)
+        m - n
+      end
+    end
+    
+  end
 end

@@ -26,6 +26,29 @@ module MDS
     end
     
     #
+    # Create a new matrix and assign each element as the
+    # result of invoking the given block.
+    #
+    # Default implementation uses MatrixAdapter#create_scalar
+    # to allocate the matrix and invoked MatrixAdapter#set for
+    # each element. Additionally MatrixAdapter#nrows and MatrixAdapter#ncols
+    # are used for iteration.
+    #
+    # @param [Integer] n the number of rows
+    # @param [Integer] m the number of columns.
+    # @return the newly created matrix.
+    #
+    def create_block(n, m, &block)
+      mat = self.create_scalar(n, m, 0.0)
+      for i in 0..self.nrows(mat)-1
+        for j in 0..self.ncols(mat)-1
+          self.set(mat, i, j, block.call(i,j))
+        end
+      end
+      mat
+    end
+    
+    #
     # Create a new matrix with uniform random elements.
     #
     # Default implementation invokes MatrixAdapter#create_scalar and
@@ -51,16 +74,26 @@ module MDS
     #
     # Create a new identity matrix.
     #
-    # Default implementation invokes MatrixAdapter#create_scalar and
-    # sets diagonal elements through MatrixAdapter#set.
+    # Default implementation invokes MatrixAdapter#create_diagonal.
     # 
     # @param [Integer] n matrix dimension
     # @return the newly created matrix.
     #
     def create_identity(n)
+      self.create_diagonal(*[1.0]*n)
+    end
+    
+    # 
+    # Create a new diagonal matrix.
+    # 
+    # Default implementation invokes MatrixAdapter#create_scalar and
+    # sets diagonal elements through MatrixAdapter#set.
+    #
+    def create_diagonal(*elements)
+      n = elements.length
       m = self.create_scalar(n, n, 0.0)
       for i in 0..self.nrows(m)-1
-        self.set(m, i, i, 1.0)
+        self.set(m, i, i, elements[i])
       end
       m
     end
@@ -169,6 +202,41 @@ module MDS
     # @return [Array] the array containg the matrix of eigen-values and eigen-vectors
     def ed(m)
       raise NotImplementedError
+    end
+    
+    #
+    # Retrieve the diagonal elements as an array.
+    #
+    # Default implementation uses MatrixAdapter#nrows, MatrixAdapter#ncols
+    # and MatrixAdapter#get to retrieve elements
+    #
+    def diagonals(m)
+      size = [self.nrows(m), self.ncols(m)].min
+      (0..size-1).map{|i| self.get(m,i,i)}
+    end
+    
+    #
+    # Calculate the sum of diagonal matrix elements.
+    #
+    # Default implementation invokes MatrixAdapter#diagonals to
+    # calculate the trace.
+    #
+    # @param m the matrix
+    # @return trace of matrix
+    #
+    def trace(m)
+      self.diagonals(m).inject(0) {|sum,e| sum += e}
+    end
+    
+    #
+    #
+    #
+    def minor(m, row_range, col_range)
+      nrows = (row_range.last - row_range.first) + 1
+      ncols = (col_range.last - col_range.first) + 1
+      self.create_block(nrows, ncols) do |i,j|
+        self.get(m, i + row_range.first, j + col_range.first)
+      end
     end
     
   end

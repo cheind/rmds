@@ -7,7 +7,6 @@
 $:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'mds/matrix_adapter'
-require 'mds/matrix'
 require 'mds/distance_matrix'
 require 'mds/classic'
 
