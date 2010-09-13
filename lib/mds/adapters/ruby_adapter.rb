@@ -25,6 +25,7 @@ module MDS
     # Create a new matrix with equal elements.
     #
     # @param (see MatrixAdapter#create_scalar)
+    # @return (see MatrixAdapter#create_scalar)
     #
     def create_scalar(n, m, s)
       ::Matrix.build(n, m, s)
@@ -34,6 +35,7 @@ module MDS
     # Return the number of matrix rows
     #
     # @param (see MatrixAdapter#nrows)
+    # @return (see MatrixAdapter#nrows)
     #
     def nrows(m)
       m.row_size
@@ -43,6 +45,7 @@ module MDS
     # Return the number of matrix columns
     #
     # @param (see MatrixAdapter#ncols)
+    # @return (see MatrixAdapter#ncols)
     #
     def ncols(m)
       m.column_size
@@ -61,6 +64,7 @@ module MDS
     # Get matrix element.
     #
     # @param (see MatrixAdapter#get)
+    # @return (see MatrixAdapter#get)
     #
     def get(m, i, j)
       m[i,j]
@@ -71,6 +75,7 @@ module MDS
     # the product of a matrix and a scalar.
     #
     # @param (see MatrixAdapter#prod)
+    # @return (see MatrixAdapter#prod)
     #
     def prod(m, n)
       m * n
@@ -80,6 +85,7 @@ module MDS
     # Transpose a matrix.
     #
     # @param (see MatrixAdapter#t)
+    # @return (see MatrixAdapter#t)
     #
     def t(m)
       m.t
@@ -89,6 +95,7 @@ module MDS
     # Componentwise addition of two matrices.
     #
     # @param (see MatrixAdapter#add)
+    # @return (see MatrixAdapter#add)
     #
     def add(m, n)
       m + n
@@ -98,6 +105,7 @@ module MDS
     # Componentwise subtraction of two matrices.
     #
     # @param (see MatrixAdapter#sub)
+    # @return (see MatrixAdapter#sub)
     #
     def sub(m, n)
       m - n
