@@ -106,12 +106,13 @@ module MDS
     #
     # Compute the eigen-decomposition of a real symmetric matrix.
     #
-    # The Ruby version uses Jacobi iterations to calculated the 
+    # The Ruby version uses Jacobi iterations to calculate the 
     # eigen-decomposition of a matrix. Although comfortable as all
     # third-party dependencies can be installed via gem, the method is
     # not suited for matrices bigger than 10x10.
     #
     # @param (see MatrixAdapter#ed)
+    # @return (see MatrixAdapter#ed)
     #
     def ed(m)
       eigen_values = m.cJacobiA
