@@ -103,6 +103,7 @@ module MDS
     #
     # @param m the matrix
     # @return number of rows in matrix
+    # @abstract
     #
     def nrows(m)
       raise NotImplementedError
@@ -113,6 +114,7 @@ module MDS
     #
     # @param m the matrix
     # @return number of columns in matrix
+    # @abstract
     #
     def ncols(m)
       raise NotImplementedError
@@ -138,6 +140,7 @@ module MDS
     # @param [Integer] j the j-th column, zero-based indexing
     # @return [Float] value of element
     # @abstract
+    #
     def get(m, i, j)
       raise NotImplementedError
     end
@@ -184,6 +187,7 @@ module MDS
     #
     # @param m matrix to transpose of size NxM
     # @return transposed matrix of size MxN
+    # @abstract
     #
     def t(m)
       raise NotImplementedError
@@ -200,6 +204,8 @@ module MDS
     #
     # @param m the matrix to decompose
     # @return [Array] the array containg the matrix of eigen-values and eigen-vectors
+    # @abstract
+    #
     def ed(m)
       raise NotImplementedError
     end
