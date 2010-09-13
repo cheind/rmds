@@ -229,7 +229,14 @@ module MDS
     end
     
     #
+    # Calculate minor matrix.
     #
+    # Default implementation allocates a new matrix and
+    # set its elements through MatrixAdapter#create_block.
+    #
+    # @param m matrix to calculate minor from
+    # @param [Range] row_range row range
+    # @param [Range] col_range column range
     #
     def minor(m, row_range, col_range)
       nrows = (row_range.last - row_range.first) + 1
