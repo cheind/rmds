@@ -31,7 +31,9 @@ module MDS
       eval, evec = ma.ed(b)
       dims = Classic.find_dimensionality(ma, eval, k)
       
-      diags = ma.diagonals(eval).map {|i| Math.sqrt(i) if i > 0.0}
+      diags = ma.diagonals(eval).map do |i| 
+        i > 0.0 ? Math.sqrt(i) : i
+      end
       lam = ma.create_diagonal(*diags) 
       lam = ma.minor(lam, 0..(ma.nrows(lam)-1), 0..(dims-1))
       ma.prod(evec,lam)

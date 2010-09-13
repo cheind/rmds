@@ -203,7 +203,7 @@ module MDS
     # descending order of importance.
     #
     # @param m the matrix to decompose
-    # @return [Array] the array containing the matrix of eigen-values and eigen-vectors.
+    # @return [Array] the array containing the matrix of eigen-values and eigen-vector
     # @abstract
     #
     def ed(m)

@@ -19,11 +19,12 @@ class TestDistanceMatrix < Test::Unit::TestCase
     ma = MDS::Test::StdMatrixAdapter.new
     d = MDS.l2_distances_squared(ma, x)
 
-    assert_equal_matrices(ma, 
-                           ::Matrix[
-                                [0.0, 10.0, 2.0], 
-                                [10.0, 0.0, 20.0], 
-                                [2.0, 20.0, 0.0]], 
-                           d)
+    assert_equal_matrices(
+      ma, 
+      ::Matrix[
+        [0.0, 10.0, 2.0], 
+        [10.0, 0.0, 20.0], 
+        [2.0, 20.0, 0.0]], 
+      d)
   end
 end
