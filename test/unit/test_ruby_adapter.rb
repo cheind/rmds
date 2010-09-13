@@ -27,26 +27,6 @@ class TestRubyAdapter < Test::Unit::TestCase
       end
     end
   end
-
-  def test_create_random
-    m = @ma.create_random(30, 40, -1.0, 1.0)
-    assert_instance_of(Matrix, m)
-    assert_equal(30, @ma.nrows(m))
-    assert_equal(40, @ma.ncols(m))
-    
-    for i in 0..m.row_size-1 do
-      for j in 0..m.column_size-1 do
-        assert_instance_of(Float, m[i,j])
-        assert(m[i,j] >= -1.0 && m[i,j] <= 1.0)
-      end
-    end
-  end
-  
-  def test_create_identity
-   m = @ma.create_identity(4)
-   r = Matrix.identity(4)
-   assert_equal_matrices(@ma, m, r)
-  end
   
   def test_get_set
     a = @ma.create_scalar(2, 2, 1.0)
