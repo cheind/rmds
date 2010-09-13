@@ -26,7 +26,7 @@ class TestClassicRuby < Test::Unit::TestCase
   
   def test_5d
     ma = MDS::RubyAdapter.new
-    x = ma.create_random(15, 5, -10, 10)
+    x = ma.create_random(10, 5, -10, 10)
     d = MDS.l2_distances_squared(ma, x)
     proj = MDS::Classic.project(ma, d, 0.99)
     d_proj = MDS.l2_distances_squared(ma, proj)
