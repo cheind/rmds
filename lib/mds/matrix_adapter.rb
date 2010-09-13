@@ -29,9 +29,9 @@ module MDS
     # Create a new matrix and assign each element as the
     # result of invoking the given block.
     #
-    # Default implementation uses MatrixAdapter#create_scalar
-    # to allocate the matrix and invoked MatrixAdapter#set for
-    # each element. Additionally MatrixAdapter#nrows and MatrixAdapter#ncols
+    # Default implementation uses #create_scalar
+    # to allocate the matrix and invoked #set for
+    # each element. Additionally #nrows and #ncols
     # are used for iteration.
     #
     # @param [Integer] n the number of rows
