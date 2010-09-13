@@ -1,7 +1,7 @@
 #
 # rmds - Ruby Multidimensional Scaling Library
 # Copyright (c) Christoph Heindl, 2010
-# http://code.google.com/p/mdsl/
+# http://github.com/cheind/rmds
 #
 
 require './test/test_helper.rb'
@@ -16,7 +16,7 @@ class TestClassic < Test::Unit::TestCase
     ])
     
     d = Matrix.l2_distances_squared(x)
-    
+
     proj = MDS::Classic.project(d, 0.99)
     d_proj = Matrix.l2_distances_squared(proj)
     

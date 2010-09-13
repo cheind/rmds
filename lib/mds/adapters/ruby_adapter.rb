@@ -1,10 +1,11 @@
 #
 # rmds - Ruby Multidimensional Scaling Library
 # Copyright (c) Christoph Heindl, 2010
-# http://code.google.com/p/mdsl/
+# http://github.com/cheind/rmds
 #
 
 begin
+  require 'rubygems'
   require 'extendmatrix'
 rescue LoadError
   warn "\n**Notice: RubyAdapter requires \'extendmatrix\' which was not found."
@@ -28,7 +29,25 @@ module MDS
     def create_scalar(n, m, s)
       ::Matrix.build(n, m, s)
     end
+
+    #
+    # Return the number of matrix rows
+    #
+    # @param (see MatrixAdapter#nrows)
+    #
+    def nrows(m)
+      m.row_size
+    end
     
+    #
+    # Return the number of matrix columns
+    #
+    # @param (see MatrixAdapter#ncols)
+    #
+    def ncols(m)
+      m.column_size
+    end
+   
     #
     # Set matrix element.
     #
@@ -58,6 +77,15 @@ module MDS
     end
     
     #
+    # Transpose a matrix.
+    #
+    # @param (see MatrixAdapter#t)
+    #
+    def t(m)
+      m.t
+    end
+    
+    #
     # Componentwise addition of two matrices.
     #
     # @param (see MatrixAdapter#add)
@@ -73,6 +101,31 @@ module MDS
     #
     def sub(m, n)
       m - n
+    end
+    
+    #
+    # Compute the eigen-decomposition of a real symmetric matrix.
+    #
+    # The Ruby version uses Jacobi iterations to calculated the 
+    # eigen-decomposition of a matrix. Although comfortable as all
+    # third-party dependencies can be installed via gem, the method is
+    # not suited for matrices bigger than 10x10.
+    #
+    # @param (see MatrixAdapter#ed)
+    #
+    def ed(m)
+      eigen_values = m.cJacobiA
+      eigen_vectors = m.cJacobiV
+
+      ranks = (0..(m.row_size-1)).sort{|i,j| eigen_values[j,j] <=> eigen_values[i,i]}
+      
+      s_eigen_values = []
+      s_eigen_vectors = []
+      ranks.each do |r|
+        s_eigen_values << eigen_values[r,r]
+        s_eigen_vectors << eigen_vectors.column(r)
+      end    
+      [Matrix.diagonal(*s_eigen_values), Matrix.columns(s_eigen_vectors)]
     end
     
   end

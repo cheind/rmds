@@ -1,7 +1,7 @@
 #
 # rmds - Ruby Multidimensional Scaling Library
 # Copyright (c) Christoph Heindl, 2010
-# http://code.google.com/p/mdsl/
+# http://github.com/cheind/rmds
 #
 
 module MDS
@@ -37,7 +37,7 @@ module MDS
     # @param [Float] smax the maximum element value (inclusive).
     # @return the newly created matrix.
     #
-    def create_random(n, m, smin, smax)
+    def create_random(n, m, smin = -1.0, smax = 1.0)
       range = smax - smin
       m = self.create_scalar(n, m, 0.0)
       for i in 0..self.nrows(m)-1
@@ -45,6 +45,44 @@ module MDS
           self.set(m, i, j, smin + range*rand())
         end
       end
+      m
+    end
+    
+    #
+    # Create a new identity matrix.
+    #
+    # Default implementation invokes MatrixAdapter#create_scalar and
+    # sets diagonal elements through MatrixAdapter#set.
+    # 
+    # @param [Integer] n matrix dimension
+    # @return the newly created matrix.
+    #
+    def create_identity(n)
+      m = self.create_scalar(n, n, 0.0)
+      for i in 0..self.nrows(m)-1
+        self.set(m, i, i, 1.0)
+      end
+      m
+    end
+    
+    #
+    # Return the number of matrix rows
+    #
+    # @param m the matrix
+    # @return number of rows in matrix
+    #
+    def nrows(m)
+      raise NotImplementedError
+    end
+    
+    #
+    # Return the number of matrix columns
+    #
+    # @param m the matrix
+    # @return number of columns in matrix
+    #
+    def ncols(m)
+      raise NotImplementedError
     end
     
     #
@@ -105,6 +143,31 @@ module MDS
     # @abstract
     #
     def sub(m, n)
+      raise NotImplementedError
+    end
+    
+    #
+    # Transpose a matrix.
+    #
+    # @param m matrix to transpose of size NxM
+    # @return transposed matrix of size MxN
+    #
+    def t(m)
+      raise NotImplementedError
+    end
+    
+    #
+    # Compute the eigen-decomposition of a real symmetric matrix.
+    #
+    # The eigen-decomposition consists of a diagonal matrix +D+ containing
+    # the eigen values and a square matrix +N+ having the normalized eigenvectors
+    # in columns. It is assumed that the result of MatrixAdapter#ed yields the 
+    # matrices as an array and that the eigen-vectors and values are sorted in 
+    # descending order of importance.
+    #
+    # @param m the matrix to decompose
+    # @return [Array] the array containg the matrix of eigen-values and eigen-vectors
+    def ed(m)
       raise NotImplementedError
     end
     

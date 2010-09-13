@@ -4,6 +4,7 @@
 # http://code.google.com/p/mdsl/
 #
 
+=begin
 begin
   require 'extendmatrix'
 rescue LoadError
@@ -11,6 +12,7 @@ rescue LoadError
   gem 'extendmatrix'
   require 'extendmatrix'
 end
+=end
 
 class Matrix
   #
