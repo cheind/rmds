@@ -7,7 +7,11 @@ Classical MDS is the only variant of MDS currently offered by mdsl.
  
 Requirements
 ---------------
-Non except Ruby. This distribution was tested on Ruby 1.8.6 and Ruby 1.9.1.
+This distribution was tested on Ruby 1.8.6 and Ruby 1.9.1.
+
+Documentation
+---------------
+A documentation of the current master branch can be found [here](http://rdoc.info/github/cheind/rmds/master/frames).
 
 License
 ---------------
