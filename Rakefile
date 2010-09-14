@@ -4,6 +4,7 @@
 # http://github.com/cheind/rmds
 #
 
+require 'lib/mds'
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
@@ -22,9 +23,20 @@ namespace 'test' do
   
 end
 
-desc "Generate rdoc documentation"
-Rake::RDocTask.new do |rd|
-  rd.options += [ '-f', 'darkfish', '-w', '4', '-m', 'README']
-  rd.rdoc_dir = "doc"
-  rd.rdoc_files.include('README', 'License', 'lib/**/*.rb')
+namespace 'docs' do
+  desc "Generate rdoc documentation"
+  Rake::RDocTask.new do |rd|
+    rd.rdoc_dir = "doc"
+    rd.rdoc_files.include('README', 'License', 'lib/**/*.rb')
+  end
+  
+  begin
+    require 'yard'
+    YARD::Rake::YardocTask.new do |t|
+      t.options += ['--title', "rmds #{MDS::VERSION} Documentation"]
+    end
+  rescue LoadError
+  end
+  
+  
 end
