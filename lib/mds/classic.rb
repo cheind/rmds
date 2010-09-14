@@ -14,45 +14,70 @@ module MDS
   class Classic
     
     #
-    # Transform the squared distance matrix +D+ into a matrix of Cartesian 
-    # coordinates by projecting +D+ onto the basis formed by eigen-decomposition
-    # of the initial matrix. 
+    # Find a Cartesian embedding for the given distances.
     #
-    # The result is a matrix +F+ of dimensionality NxM, where N is the size of
-    # +D+ and M equals +dims+.
+    # Instead of a fixed dimensionality for the resulting embedding, this
+    # method determines the dimensionality based on the variances of distances
+    # in its input matrix and the parameter passed. The parameter specifies
+    # the percent of variance of distance to preserve in the Cartesian embedding.
     #
-    # @param [MatrixAdapter] ma matrix adapter to use
-    # @param d squared distance matrix +D+
-    # @param [Float] k percent [0..1] of variances in distances to keep in embedding.
-    # @return matrix containing the Cartesian embedding.
+    # @param [MDS::Matrix] d distance matrix of observations
+    # @param [Float] k the percent of variance of distances 
+    # to preserve in embedding in the range [0..1].
+    # @return [MDS::Matrix] the matrix containing the cartesian embedding.
     #
-    def Classic.project(ma, d, k)
-      b = Classic.shift(ma, d)
-      eval, evec = ma.ed(b)
-      dims = Classic.find_dimensionality(ma, eval, k)
-      
-      diags = ma.diagonals(eval).map do |i| 
-        i > 0.0 ? Math.sqrt(i) : i
-      end
-      lam = ma.create_diagonal(*diags) 
-      lam = ma.minor(lam, 0..(ma.nrows(lam)-1), 0..(dims-1))
-      ma.prod(evec,lam)
+    def Classic.projectk(d, k)
+      b = Classic.shift(d)
+      eval, evec = b.ed
+      dims = Classic.find_dimensionality(eval, k)
+      Classic.project(eval, evec, dims)      
+    end
+    
+    #
+    # Find a Cartesian embedding for the given distances.
+    #
+    # @param [MDS::Matrix] d distance matrix of observations
+    # @param [Integer] dims the number of dimensions of the embedding.
+    # @return [MDS::Matrix] the matrix containing the cartesian embedding.
+    #
+    def Classic.projectd(d, dims)
+      b = Classic.shift(d)
+      eval, evec = b.ed
+      Classic.project(eval, evec, dims)
     end
     
     
     protected 
     
-    def Classic.shift(ma, d)
-      n = ma.nrows(d)
+    #
+    # Transform the squared distance matrix into a matrix of Cartesian 
+    # coordinates by projecting the distances onto the basis formed by
+    # the eigen-decomposition of the initial matrix. 
+    #
+    # @param [MDS::Matrix] d squared distance matrix
+    # @param [Float] k percent [0..1] of variances in distances to keep in embedding.
+    # @return [MDS::Matrix] containing the Cartesian embedding.
+    #
+    def Classic.project(eval, evec, dims)     
+      lam = eval.minor(0..eval.nrows-1, 0..dims-1)
+      for i in 0..lam.ncols-1
+        v = lam[i,i]
+        if v > 0.0
+          lam[i,i] = Math.sqrt(v)
+        end
+      end
+      evec * lam
+    end
+    
+    def Classic.shift(d)
       # Nx1 matrix of ones
-      ones = ma.create(n, 1, 1.0)
+      ones = Matrix.create(d.nrows, 1, 1.0)
       # 1xN weight vector
-      m = ma.create(1, n, 1.0/n)
+      m = Matrix.create(1, d.nrows, 1.0/d.nrows)
       # NxN centering matrix
-      xi = ma.sub(ma.create_identity(n), ma.prod(ones, m))
+      xi = Matrix.create_identity(d.nrows) - ones * m
       # NxN shifted distances matrix, B
-      # (xi * d * xi.t) * -0.5
-      ma.prod(ma.prod(xi, ma.prod(d, ma.t(xi))), -0.5)
+      (xi * d * xi.t) * -0.5
     end
 
     
@@ -60,16 +85,16 @@ module MDS
     # Find the dimensionality of the resulting coordinate space so that
     # at least +k+ percent of the variance of the distances is preserved.
     #
-    def Classic.find_dimensionality(ma, eval, k)
-      n = ma.nrows(eval)
-      sum_ev = ma.trace(eval)
+    def Classic.find_dimensionality(eval, k)
+      sum_ev = eval.trace
+      n = eval.nrows
       
       i = 0
       sum = 0
       while ((i < n) && 
-             (ma.get(eval,i,i) > 0.0) && 
+             (eval[i,i] > 0.0) && 
              (sum / sum_ev) < k)
-        sum += ma.get(eval,i,i)
+        sum += eval[i,i]
         i += 1
       end
       i

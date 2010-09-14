@@ -5,11 +5,11 @@
 #
 
 require './test/test_helper.rb'
-require './test/unit/modules/auto_matrix_interface.rb'
+require './test/unit/modules/auto_euclidean_space.rb'
 require 'mds/interfaces/stdlib_interface'
 
-class TestStdlibInterface < Test::Unit::TestCase
-  include AutoMatrixInterface
+class TestStdlibEuclideanSpace< Test::Unit::TestCase
+  include AutoEuclideanSpace
   
   def setup
     MDS::Matrix.push_interface(MDS::StdlibInterface)

@@ -29,9 +29,9 @@ module MDS
     # Create a new matrix and assign each element as the
     # result of invoking the given block.
     #
-    # Default implementation uses MatrixAdapter#create
-    # to allocate the matrix and invoked MatrixAdapter#set for
-    # each element. Additionally MatrixAdapter#nrows and MatrixAdapter#ncols
+    # Default implementation uses MatrixInterface#create
+    # to allocate the matrix and invoked MatrixInterface#set for
+    # each element. Additionally MatrixInterface#nrows and MatrixInterface#ncols
     # are used for iteration.
     #
     # @param [Integer] n the number of rows
@@ -51,7 +51,7 @@ module MDS
     #
     # Create a new matrix with uniform random elements.
     #
-    # Default implementation invokes MatrixAdapter#create and
+    # Default implementation invokes MatrixInterface#create and
     # sets elements individually.
     #
     # @param [Integer] n the number of rows
@@ -74,7 +74,7 @@ module MDS
     #
     # Create a new identity matrix.
     #
-    # Default implementation invokes MatrixAdapter#create_diagonal.
+    # Default implementation invokes MatrixInterface#create_diagonal.
     # 
     # @param [Integer] n matrix dimension
     # @return the newly created matrix.
@@ -86,8 +86,8 @@ module MDS
     # 
     # Create a new diagonal matrix.
     # 
-    # Default implementation invokes MatrixAdapter#create and
-    # sets diagonal elements through MatrixAdapter#set.
+    # Default implementation invokes MatrixInterface#create and
+    # sets diagonal elements through MatrixInterface#set.
     #
     def MatrixInterface.create_diagonal(*elements)
       n = elements.length
@@ -96,6 +96,22 @@ module MDS
         self.set(m, i, i, elements[i])
       end
       m
+    end
+    
+    #
+    # Create matrix from rows.
+    #
+    # Default implementation uses MatrixInterface#create_block.
+    #
+    # @param [Array] rows the rows
+    # @return the newly created matrix
+    #
+    def MatrixInterface.create_rows(*rows)
+      nrows = rows.length
+      ncols = rows.first.length
+      self.create_block(nrows, ncols) do |i,j|
+        rows[i][j]
+      end
     end
     
     #
@@ -198,7 +214,7 @@ module MDS
     #
     # The eigen-decomposition consists of a diagonal matrix +D+ containing
     # the eigen values and a square matrix +N+ having the normalized eigenvectors
-    # in columns. It is assumed that the result of MatrixAdapter#ed yields the 
+    # in columns. It is assumed that the result of MatrixInterface#ed yields the 
     # matrices as an array and that the eigen-vectors and values are sorted in 
     # descending order of importance.
     #
@@ -213,8 +229,8 @@ module MDS
     #
     # Retrieve the diagonal elements as an array.
     #
-    # Default implementation uses MatrixAdapter#nrows, MatrixAdapter#ncols
-    # and MatrixAdapter#get to retrieve elements
+    # Default implementation uses MatrixInterface#nrows, MatrixInterface#ncols
+    # and MatrixInterface#get to retrieve elements
     #
     def MatrixInterface.diagonals(m)
       size = [self.nrows(m), self.ncols(m)].min
@@ -224,7 +240,7 @@ module MDS
     #
     # Calculate the sum of diagonal matrix elements.
     #
-    # Default implementation invokes MatrixAdapter#diagonals to
+    # Default implementation invokes MatrixInterface#diagonals to
     # calculate the trace.
     #
     # @param m the matrix
@@ -238,7 +254,7 @@ module MDS
     # Calculate minor matrix.
     #
     # Default implementation allocates a new matrix and
-    # set its elements through MatrixAdapter#create_block.
+    # set its elements through MatrixInterface#create_block.
     #
     # @param m matrix to calculate minor from
     # @param [Range] row_range row range

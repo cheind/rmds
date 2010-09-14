@@ -5,18 +5,18 @@
 #
 
 require './test/test_helper.rb'
-require './test/unit/modules/auto_matrix_interface.rb'
-require 'mds/interfaces/stdlib_interface'
+require './test/unit/modules/auto_classic.rb'
+require 'mds/interfaces/gsl_interface'
 
-class TestStdlibInterface < Test::Unit::TestCase
-  include AutoMatrixInterface
+class TestGSLClassic < Test::Unit::TestCase
+  include AutoClassic
   
   def setup
-    MDS::Matrix.push_interface(MDS::StdlibInterface)
+    MDS::Matrix.push_interface(MDS::GSLInterface)
   end
   
   def teardown
     MDS::Matrix.pop_interface
   end
-  
+
 end

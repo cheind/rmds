@@ -135,7 +135,7 @@ module MDS
         s_eigen_values << eigen_values[r,r]
         s_eigen_vectors << eigen_vectors.column(r)
       end    
-      [Matrix.diagonal(*s_eigen_values), Matrix.columns(s_eigen_vectors)]
+      [::Matrix.diagonal(*s_eigen_values), ::Matrix.columns(s_eigen_vectors)]
     end
     
   end
