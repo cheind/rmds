@@ -1,5 +1,5 @@
 #
-# rmds - Ruby Multidimensional Scaling Library
+# RMDS - Ruby Multidimensional Scaling Library
 # Copyright (c) Christoph Heindl, 2010
 # http://github.com/cheind/rmds
 #
@@ -7,7 +7,27 @@
 module MDS
   
   #
-  # Matrix adapter
+  # A matrix adapter.
+  #
+  # RMDS does not implement matrices or linear algebra routines itself, 
+  # instead RMDS offers a non-intrusive adapter architecture to interop 
+  # with third party linear algebra packages.
+  #
+  # The RMDS adapter architecture consists of two layers
+  #
+  # * MDS::MatrixInterface defines a minimal common interface of 
+  #   required interop methods.
+  # * MDS::Matrix is a matrix adapter that binds to data provided by 
+  #   a specialized MDS::MatrixInterface class and carries out all
+  #   computations through methods defined in MDS::MatrixInterface
+  #   
+  # To successfully integrate and use a linear algebra package in RMDS, 
+  # the following two steps are necessary.
+  #
+  # * Subclass from MDS::MatrixInterface and implement at least all
+  #   abstract class methods.
+  # * Tell RMDS to use it by setting the default matrix interface.
+  #  MDS::Matrix.interface = YourMatrixInterface
   #
   class Matrix
     # Stores the matrix interaces to use at class level
