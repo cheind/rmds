@@ -5,11 +5,11 @@
 #
 
 require './test/test_helper.rb'
-require './test/unit/modules/auto_classic.rb'
+require './test/unit/bundles/bundle_classic.rb'
 require 'mds/interfaces/gsl_interface'
 
 class TestGSLClassic < Test::Unit::TestCase
-  include AutoClassic
+  include BundleClassic
   
   def setup
     MDS::Matrix.push_interface(MDS::GSLInterface)

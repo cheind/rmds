@@ -9,7 +9,7 @@ require './test/test_helper.rb'
 #
 # Module containing standarized tests for matrix interfaces.
 #
-module AutoMatrixInterface
+module BundleMatrixInterface
   include MatrixAssertions
 
   #----------------------------

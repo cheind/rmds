@@ -9,7 +9,7 @@ require './test/test_helper.rb'
 #
 # Module containing standarized tests for MDS::Classic.
 #
-module AutoClassic
+module BundleClassic
   include MatrixAssertions
   
   def test_k_2d

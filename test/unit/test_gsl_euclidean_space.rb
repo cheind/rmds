@@ -5,11 +5,11 @@
 #
 
 require './test/test_helper.rb'
-require './test/unit/modules/auto_euclidean_space.rb'
+require './test/unit/bundles/bundle_euclidean_space.rb'
 require 'mds/interfaces/gsl_interface'
 
 class TestGSLEuclideanSpace< Test::Unit::TestCase
-  include AutoEuclideanSpace
+  include BundleEuclideanSpace
   
   def setup
     MDS::Matrix.push_interface(MDS::GSLInterface)

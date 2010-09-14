@@ -5,11 +5,11 @@
 #
 
 require './test/test_helper.rb'
-require './test/unit/modules/auto_matrix_interface.rb'
+require './test/unit/bundles/bundle_matrix_interface.rb'
 require 'mds/interfaces/gsl_interface'
 
 class TestStdlibInterface < Test::Unit::TestCase
-  include AutoMatrixInterface
+  include BundleMatrixInterface
   
   def setup
     MDS::Matrix.push_interface(MDS::GSLInterface)

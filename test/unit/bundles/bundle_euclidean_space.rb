@@ -9,7 +9,7 @@ require './test/test_helper.rb'
 #
 # Module containing standarized tests for MDS::EuclideanSpace.
 #
-module AutoEuclideanSpace
+module BundleEuclideanSpace
   include MatrixAssertions
 
   def test_squared_distances
