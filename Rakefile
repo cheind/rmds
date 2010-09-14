@@ -48,6 +48,7 @@ namespace 'docs' do
   begin
     require 'yard'
     YARD::Rake::YardocTask.new do |t|
+      t.files   = ['lib/**/*.rb', '-', 'LICENSE.md'] 
       t.options += ['--title', "RMDS #{MDS::VERSION} Documentation"]
     end
   rescue LoadError
