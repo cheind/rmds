@@ -69,6 +69,13 @@ module MDS
       evec * lam
     end
     
+    #
+    # Transforms the distance matrix into an equivalent scalar product
+    # matrix.
+    # 
+    # @param [MDS::Matrix] d the distance matrix
+    # @return [MDS::Matrix] the equivalent scalar product matrix.
+    #
     def Classic.shift(d)
       # Nx1 matrix of ones
       ones = Matrix.create(d.nrows, 1, 1.0)
@@ -84,6 +91,11 @@ module MDS
     #
     # Find the dimensionality of the resulting coordinate space so that
     # at least +k+ percent of the variance of the distances is preserved.
+    #
+    # @param [MDS::Matrix] eval the diagonal matrix of sorted eigen-values.
+    # @param [Float] k percent of variance to keep.
+    # @return [Integer] minimum number of dimensions to use, to keep k-percent
+    # of variances of distances in embedding.
     #
     def Classic.find_dimensionality(eval, k)
       sum_ev = eval.trace
