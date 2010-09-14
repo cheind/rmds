@@ -4,6 +4,8 @@
 # http://github.com/cheind/rmds
 #
 
+require 'mds/matrix_interface'
+
 begin
   require 'rubygems'
   require 'extendmatrix'
@@ -16,57 +18,56 @@ end
 module MDS
   
   #
-  # Adapterr for standard ruby matrices.
-  # 
+  # Common matrix interface for Ruby's standard library Matrix class.
   #
-  class RubyAdapter < MatrixAdapter
+  class StdlibInterface < MatrixInterface
     
     #
     # Create a new matrix with equal elements.
     #
-    # @param (see MatrixAdapter#create)
-    # @return (see MatrixAdapter#create)
+    # @param (see MatrixInterface#create)
+    # @return (see MatrixInterface#create)
     #
-    def create(n, m, s)
+    def StdlibInterface.create(n, m, s)
       ::Matrix.build(n, m, s)
     end
 
     #
     # Return the number of matrix rows
     #
-    # @param (see MatrixAdapter#nrows)
-    # @return (see MatrixAdapter#nrows)
+    # @param (see MatrixInterface#nrows)
+    # @return (see MatrixInterface#nrows)
     #
-    def nrows(m)
+    def StdlibInterface.nrows(m)
       m.row_size
     end
     
     #
     # Return the number of matrix columns
     #
-    # @param (see MatrixAdapter#ncols)
-    # @return (see MatrixAdapter#ncols)
+    # @param (see MatrixInterface#ncols)
+    # @return (see MatrixInterface#ncols)
     #
-    def ncols(m)
+    def StdlibInterface.ncols(m)
       m.column_size
     end
    
     #
     # Set matrix element.
     #
-    # @param (see MatrixAdapter#set)
+    # @param (see MatrixInterface#set)
     #
-    def set(m, i, j, s)
+    def StdlibInterface.set(m, i, j, s)
       m[i,j] = s
     end
     
     #
     # Get matrix element.
     #
-    # @param (see MatrixAdapter#get)
-    # @return (see MatrixAdapter#get)
+    # @param (see MatrixInterface#get)
+    # @return (see MatrixInterface#get)
     #
-    def get(m, i, j)
+    def StdlibInterface.get(m, i, j)
       m[i,j]
     end
     
@@ -74,30 +75,30 @@ module MDS
     # Calculate the product of two matrices or
     # the product of a matrix and a scalar.
     #
-    # @param (see MatrixAdapter#prod)
-    # @return (see MatrixAdapter#prod)
+    # @param (see MatrixInterface#prod)
+    # @return (see MatrixInterface#prod)
     #
-    def prod(m, n)
+    def StdlibInterface.prod(m, n)
       m * n
     end
     
     #
     # Transpose a matrix.
     #
-    # @param (see MatrixAdapter#t)
-    # @return (see MatrixAdapter#t)
+    # @param (see MatrixInterface#t)
+    # @return (see MatrixInterface#t)
     #
-    def t(m)
+    def StdlibInterface.t(m)
       m.t
     end
     
     #
     # Componentwise addition of two matrices.
     #
-    # @param (see MatrixAdapter#add)
-    # @return (see MatrixAdapter#add)
+    # @param (see MatrixInterface#add)
+    # @return (see MatrixInterface#add)
     #
-    def add(m, n)
+    def StdlibInterface.add(m, n)
       m + n
     end
     
@@ -107,7 +108,7 @@ module MDS
     # @param (see MatrixAdapter#sub)
     # @return (see MatrixAdapter#sub)
     #
-    def sub(m, n)
+    def StdlibInterface.sub(m, n)
       m - n
     end
     
@@ -119,10 +120,10 @@ module MDS
     # third-party dependencies can be installed via gem, the method is
     # not suited for matrices bigger than 10x10.
     #
-    # @param (see MatrixAdapter#ed)
-    # @return (see MatrixAdapter#ed)
+    # @param (see MatrixInterface#ed)
+    # @return (see MatrixInterface#ed)
     #
-    def ed(m)
+    def StdlibInterface.ed(m)
       eigen_values = m.cJacobiA
       eigen_vectors = m.cJacobiV
 
