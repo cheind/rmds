@@ -10,12 +10,17 @@ require 'rake/rdoctask'
 
 task :default => [:test_units]
 
-desc "Run unit tests"
-Rake::TestTask.new("test") { |t|
-  t.pattern = FileList['test/unit/**/*.rb']
-  t.verbose = false
-  t.warning = false
-}
+
+namespace 'test' do
+
+  desc "Run unit tests"
+  Rake::TestTask.new("unit") do |t|
+    t.pattern = FileList['test/unit/**/*.rb']
+    t.verbose = false
+    t.warning = false
+  end
+  
+end
 
 desc "Generate rdoc documentation"
 Rake::RDocTask.new do |rd|
