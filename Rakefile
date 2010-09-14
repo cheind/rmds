@@ -8,10 +8,8 @@ require 'lib/mds'
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
-require 'rubygems'
 
-task :default => [:test_units]
-
+task :default => ['test:unit:all']
 
 namespace 'test' do
 
