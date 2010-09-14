@@ -45,9 +45,9 @@ module MDS
     def Classic.shift(ma, d)
       n = ma.nrows(d)
       # Nx1 matrix of ones
-      ones = ma.create_scalar(n, 1, 1.0)
+      ones = ma.create(n, 1, 1.0)
       # 1xN weight vector
-      m = ma.create_scalar(1, n, 1.0/n)
+      m = ma.create(1, n, 1.0/n)
       # NxN centering matrix
       xi = ma.sub(ma.create_identity(n), ma.prod(ones, m))
       # NxN shifted distances matrix, B

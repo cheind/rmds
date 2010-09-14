@@ -15,7 +15,7 @@ class TestRubyAdapter < Test::Unit::TestCase
   end
 
   def test_create_scalar
-    m = @ma.create_scalar(2, 3, 0.0)
+    m = @ma.create(2, 3, 0.0)
     assert_instance_of(Matrix, m)
     assert_equal(2, @ma.nrows(m))
     assert_equal(3, @ma.ncols(m))
@@ -29,7 +29,7 @@ class TestRubyAdapter < Test::Unit::TestCase
   end
   
   def test_get_set
-    a = @ma.create_scalar(2, 2, 1.0)
+    a = @ma.create(2, 2, 1.0)
     @ma.set(a, 0, 0, 1.0)
     @ma.set(a, 0, 1, 2.0)
     @ma.set(a, 1, 0, 3.0)
@@ -79,7 +79,7 @@ class TestRubyAdapter < Test::Unit::TestCase
   end
     
   def test_ed
-    a = @ma.create_scalar(3, 3, 0.0)
+    a = @ma.create(3, 3, 0.0)
 
     a[0,0] = 0.0; a[0,1] = 10.0; a[0,2] = 2.0;
     a[1,0] = 10.0; a[1,1] = 0.0; a[1,2] = 20.0;

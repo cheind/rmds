@@ -24,10 +24,10 @@ module MDS
     #
     # Create a new matrix with equal elements.
     #
-    # @param (see MatrixAdapter#create_scalar)
-    # @return (see MatrixAdapter#create_scalar)
+    # @param (see MatrixAdapter#create)
+    # @return (see MatrixAdapter#create)
     #
-    def create_scalar(n, m, s)
+    def create(n, m, s)
       ::Matrix.build(n, m, s)
     end
 

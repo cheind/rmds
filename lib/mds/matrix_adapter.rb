@@ -21,7 +21,7 @@ module MDS
     # @return the newly created matrix.
     # @abstract
     #
-    def create_scalar(n, m, s)
+    def create(n, m, s)
       raise NotImplementedError
     end
     
@@ -29,7 +29,7 @@ module MDS
     # Create a new matrix and assign each element as the
     # result of invoking the given block.
     #
-    # Default implementation uses MatrixAdapter#create_scalar
+    # Default implementation uses MatrixAdapter#create
     # to allocate the matrix and invoked MatrixAdapter#set for
     # each element. Additionally MatrixAdapter#nrows and MatrixAdapter#ncols
     # are used for iteration.
@@ -39,7 +39,7 @@ module MDS
     # @return the newly created matrix.
     #
     def create_block(n, m, &block)
-      mat = self.create_scalar(n, m, 0.0)
+      mat = self.create(n, m, 0.0)
       for i in 0..self.nrows(mat)-1
         for j in 0..self.ncols(mat)-1
           self.set(mat, i, j, block.call(i,j))
@@ -51,7 +51,7 @@ module MDS
     #
     # Create a new matrix with uniform random elements.
     #
-    # Default implementation invokes MatrixAdapter#create_scalar and
+    # Default implementation invokes MatrixAdapter#create and
     # sets elements individually.
     #
     # @param [Integer] n the number of rows
@@ -62,7 +62,7 @@ module MDS
     #
     def create_random(n, m, smin = -1.0, smax = 1.0)
       range = smax - smin
-      m = self.create_scalar(n, m, 0.0)
+      m = self.create(n, m, 0.0)
       for i in 0..self.nrows(m)-1
         for j in 0..self.ncols(m)-1
           self.set(m, i, j, smin + range*rand())
@@ -86,12 +86,12 @@ module MDS
     # 
     # Create a new diagonal matrix.
     # 
-    # Default implementation invokes MatrixAdapter#create_scalar and
+    # Default implementation invokes MatrixAdapter#create and
     # sets diagonal elements through MatrixAdapter#set.
     #
     def create_diagonal(*elements)
       n = elements.length
-      m = self.create_scalar(n, n, 0.0)
+      m = self.create(n, n, 0.0)
       for i in 0..self.nrows(m)-1
         self.set(m, i, i, elements[i])
       end

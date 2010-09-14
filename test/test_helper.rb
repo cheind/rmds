@@ -74,7 +74,7 @@ module MDS
     #
     class StdMatrixAdapter < MDS::MatrixAdapter
 
-      def create_scalar(n, m, s)
+      def create(n, m, s)
         rows = []
         n.times do
           row = []

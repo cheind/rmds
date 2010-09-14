@@ -19,7 +19,7 @@ module MDS
     # Product of x with transpose of x
     xxt = ma.prod(x, ma.t(x))
     # 1xN matrix of ones, where N size of xxt
-    ones = ma.create_scalar(1, ma.nrows(xxt), 1.0)
+    ones = ma.create(1, ma.nrows(xxt), 1.0)
     # Nx1 matrix containing diagonal elements of x
     diagonals = ma.diagonals(xxt)
     c = ma.create_block(ma.nrows(xxt), 1) do |i, j|
