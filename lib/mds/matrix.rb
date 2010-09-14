@@ -15,19 +15,33 @@ module MDS
   #
   # The RMDS adapter architecture consists of two layers
   #
-  # * MDS::MatrixInterface defines a minimal common interface of 
+  # * {MDS::MatrixInterface} defines a minimal common interface of 
   #   required interop methods.
-  # * MDS::Matrix is a matrix adapter that binds to data provided by 
-  #   a specialized MDS::MatrixInterface class and carries out all
-  #   computations through methods defined in MDS::MatrixInterface
+  # * {MDS::Matrix} is a matrix adapter that binds to data provided by 
+  #   a specialized {MDS::MatrixInterface} class and carries out all
+  #   computations through methods defined in {MDS::MatrixInterface}-
   #   
   # To successfully integrate and use a linear algebra package in RMDS, 
   # the following two steps are necessary.
   #
-  # * Subclass from MDS::MatrixInterface and implement at least all
+  # * Subclass from {MDS::MatrixInterface} and implement at least all
   #   abstract class methods.
   # * Tell RMDS to use it by setting the default matrix interface.
+  #
+  # Subclassing is documented at {MDS::MatrixInterface}. The latter is 
+  # accomplished by setting system wide interface through one of the 
+  # following methods
+  #  
+  #  # Set active interface
   #  MDS::Matrix.interface = YourMatrixInterface
+  #
+  #  # Push onto interface stack and set active interface
+  #  MDS::Matrix.push_interface(YourMatrixInterface)
+  #
+  #  # Restore the previously active interface
+  #  MDS::Matrix.push_interface(YourMatrixInterface)
+  #
+  # @see MDS::MatrixInterface
   #
   class Matrix
     # Stores the matrix interaces to use at class level

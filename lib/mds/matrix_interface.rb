@@ -8,12 +8,34 @@ module MDS
   
   #
   # Provides a common interface to matrix operations.
-  # Allows a non-intrusive exchange of matrix classes.
   #
+  # RMDS does not implement any linear algebra routine itself,
+  # but rather provides a non intrusive mechanism to
+  # plugin third party linear algebra packages.
+  #
+  # {MDS::MatrixInterface} defines a minimal set of required
+  # methods to be implemented for any linear algebra packages
+  # which are to be used with RMDS.
+  #
+  # Making a linear algebra package compatible with RMDS is easy:
+  # simply subclass from {MDS::MatrixInterface} and implement all abstract
+  # methods.
+  #
+  # Not all of {MDS::MatrixInterface} methods are abstract, some
+  # come with a default implementation. If your linear algebra package
+  # does better at some of those methods, you should override them in your
+  # {MDS::MatrixInterface} subclass.
+  #
+  # @see MDS::Matrix
   class MatrixInterface
+  
+    #---------------------------------------
+    # Required
+    # Abstract methods
+    #---------------------------------------
     
     # 
-    # Create a new matrix with equal elements.
+    # Create a new matrix having all elements equal values.
     #
     # @param [Integer] n the number of rows
     # @param [Integer] m the number of columns
@@ -23,98 +45,6 @@ module MDS
     #
     def MatrixInterface.create(n, m, s)
       raise NotImplementedError
-    end
-    
-    #
-    # Create a new matrix and assign each element as the
-    # result of invoking the given block.
-    #
-    # Default implementation uses MatrixInterface#create
-    # to allocate the matrix and invoked MatrixInterface#set for
-    # each element. Additionally MatrixInterface#nrows and MatrixInterface#ncols
-    # are used for iteration.
-    #
-    # @param [Integer] n the number of rows
-    # @param [Integer] m the number of columns.
-    # @return the newly created matrix.
-    #
-    def MatrixInterface.create_block(n, m, &block)
-      mat = self.create(n, m, 0.0)
-      for i in 0..self.nrows(mat)-1
-        for j in 0..self.ncols(mat)-1
-          self.set(mat, i, j, block.call(i,j))
-        end
-      end
-      mat
-    end
-    
-    #
-    # Create a new matrix with uniform random elements.
-    #
-    # Default implementation invokes MatrixInterface#create and
-    # sets elements individually.
-    #
-    # @param [Integer] n the number of rows
-    # @param [Integer] m the number of columns
-    # @param [Float] smin the minimum element value (inclusive).
-    # @param [Float] smax the maximum element value (inclusive).
-    # @return the newly created matrix.
-    #
-    def MatrixInterface.create_random(n, m, smin = -1.0, smax = 1.0)
-      range = smax - smin
-      m = self.create(n, m, 0.0)
-      for i in 0..self.nrows(m)-1
-        for j in 0..self.ncols(m)-1
-          self.set(m, i, j, smin + range*rand())
-        end
-      end
-      m
-    end
-    
-    #
-    # Create a new identity matrix.
-    #
-    # Default implementation invokes MatrixInterface#create_diagonal.
-    # 
-    # @param [Integer] n matrix dimension
-    # @return the newly created matrix.
-    #
-    def MatrixInterface.create_identity(n)
-      self.create_diagonal(*[1.0]*n)
-    end
-    
-    # 
-    # Create a new diagonal matrix.
-    # 
-    # Default implementation invokes MatrixInterface#create and
-    # sets diagonal elements through MatrixInterface#set.
-    #
-    # @param *elements the diagonal elements
-    # @return the newly created matrix
-    #
-    def MatrixInterface.create_diagonal(*elements)
-      n = elements.length
-      m = self.create(n, n, 0.0)
-      for i in 0..self.nrows(m)-1
-        self.set(m, i, i, elements[i])
-      end
-      m
-    end
-    
-    #
-    # Create matrix from rows.
-    #
-    # Default implementation uses MatrixInterface#create_block.
-    #
-    # @param [Array] rows the rows
-    # @return the newly created matrix
-    #
-    def MatrixInterface.create_rows(*rows)
-      nrows = rows.length
-      ncols = rows.first.length
-      self.create_block(nrows, ncols) do |i,j|
-        rows[i][j]
-      end
     end
     
     #
@@ -147,7 +77,7 @@ module MDS
     # @param [Integer] j the j-th column, zero-based indexing
     # @param [Float] s scalar value to set
     # @abstract
-    def set(m, i, j, s)
+    def MatrixInterface.set(m, i, j, s)
       raise NotImplementedError
     end
     
@@ -228,11 +158,93 @@ module MDS
       raise NotImplementedError
     end
     
+    #---------------------------------------
+    # Optional
+    # Methods having default implementations.
+    #---------------------------------------
+    
+    #
+    # Create a new matrix and assign each element as the
+    # result of invoking the given block.
+    #
+    # @param [Integer] n the number of rows
+    # @param [Integer] m the number of columns.
+    # @return the newly created matrix.
+    #
+    def MatrixInterface.create_block(n, m, &block)
+      mat = self.create(n, m, 0.0)
+      for i in 0..self.nrows(mat)-1
+        for j in 0..self.ncols(mat)-1
+          self.set(mat, i, j, block.call(i,j))
+        end
+      end
+      mat
+    end
+    
+    #
+    # Create a new matrix with uniform random elements.
+    #
+    # @param [Integer] n the number of rows
+    # @param [Integer] m the number of columns
+    # @param [Float] smin the minimum element value (inclusive).
+    # @param [Float] smax the maximum element value (inclusive).
+    # @return the newly created matrix.
+    #
+    def MatrixInterface.create_random(n, m, smin = -1.0, smax = 1.0)
+      range = smax - smin
+      self.create_block(n, m) do |i,j|
+        smin + range*rand()
+      end
+    end
+    
+    #
+    # Create a new identity matrix.
+    # 
+    # @param [Integer] n matrix dimension
+    # @return the newly created matrix.
+    #
+    def MatrixInterface.create_identity(n)
+      self.create_diagonal(*[1.0]*n)
+    end
+    
+    # 
+    # Create a new diagonal matrix.
+    # 
+    # @param *elements the diagonal elements
+    # @return the newly created matrix
+    #
+    def MatrixInterface.create_diagonal(*elements)
+      n = elements.length
+      m = self.create(n, n, 0.0)
+      for i in 0..self.nrows(m)-1
+        self.set(m, i, i, elements[i])
+      end
+      m
+    end
+    
+    #
+    # Create matrix from rows.
+    #
+    # @param [Array] rows the rows
+    # @return the newly created matrix
+    #
+    def MatrixInterface.create_rows(*rows)
+      nrows = rows.length
+
+      ncols = rows.first.length
+      self.create_block(nrows, ncols) do |i,j|
+        rows[i][j]
+      end
+    end
+    
     #
     # Retrieve the diagonal elements as an array.
     #
-    # Default implementation uses MatrixInterface#nrows, MatrixInterface#ncols
-    # and MatrixInterface#get to retrieve elements
+    # The number of diagonals of an NxM matrix is 
+    # defined as min(N,M).
+    #
+    # @param m the matrix
+    # @return diagonals of matrix as array.
     #
     def MatrixInterface.diagonals(m)
       size = [self.nrows(m), self.ncols(m)].min
@@ -241,9 +253,6 @@ module MDS
     
     #
     # Calculate the sum of diagonal matrix elements.
-    #
-    # Default implementation invokes MatrixInterface#diagonals to
-    # calculate the trace.
     #
     # @param m the matrix
     # @return trace of matrix
@@ -255,8 +264,6 @@ module MDS
     #
     # Calculate minor matrix.
     #
-    # Default implementation allocates a new matrix and
-    # set its elements through MatrixInterface#create_block.
     #
     # @param m matrix to calculate minor from
     # @param [Range] row_range row range
