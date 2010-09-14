@@ -24,8 +24,8 @@ module MDS
     #
     # Create a new matrix with equal elements.
     #
-    # @param (see MatrixInterface#create)
-    # @return (see MatrixInterface#create)
+    # @param (see MDS::MatrixInterface#create)
+    # @return (see MDS::MatrixInterface#create)
     #
     def GSLInterface.create(n, m, s)
       mat = ::GSL::Matrix.alloc(n, m)
@@ -36,8 +36,8 @@ module MDS
     #
     # Return the number of matrix rows
     #
-    # @param (see MatrixInterface#nrows)
-    # @return (see MatrixInterface#nrows)
+    # @param (see MDS::MatrixInterface#nrows)
+    # @return (see MDS::MatrixInterface#nrows)
     #
     def GSLInterface.nrows(m)
       m.size1
@@ -46,8 +46,8 @@ module MDS
     #
     # Return the number of matrix columns
     #
-    # @param (see MatrixInterface#ncols)
-    # @return (see MatrixInterface#ncols)
+    # @param (see MDS::MatrixInterface#ncols)
+    # @return (see MDS::MatrixInterface#ncols)
     #
     def GSLInterface.ncols(m)
       m.size2
@@ -56,7 +56,7 @@ module MDS
     #
     # Set matrix element.
     #
-    # @param (see MatrixInterface#set)
+    # @param (see MDS::MatrixInterface#set)
     #
     def GSLInterface.set(m, i, j, s)
       m[i,j] = s
@@ -65,8 +65,8 @@ module MDS
     #
     # Get matrix element.
     #
-    # @param (see MatrixInterface#get)
-    # @return (see MatrixInterface#get)
+    # @param (see MDS::MatrixInterface#get)
+    # @return (see MDS::MatrixInterface#get)
     #
     def GSLInterface.get(m, i, j)
       m[i,j]
@@ -76,8 +76,8 @@ module MDS
     # Calculate the product of two matrices or
     # the product of a matrix and a scalar.
     #
-    # @param (see MatrixInterface#prod)
-    # @return (see MatrixInterface#prod)
+    # @param (see MDS::MatrixInterface#prod)
+    # @return (see MDS::MatrixInterface#prod)
     #
     def GSLInterface.prod(m, n)
       m * n
@@ -86,8 +86,8 @@ module MDS
     #
     # Transpose a matrix.
     #
-    # @param (see MatrixInterface#t)
-    # @return (see MatrixInterface#t)
+    # @param (see MDS::MatrixInterface#t)
+    # @return (see MDS::MatrixInterface#t)
     #
     def GSLInterface.t(m)
       m.transpose
@@ -96,8 +96,8 @@ module MDS
     #
     # Componentwise addition of two matrices.
     #
-    # @param (see MatrixInterface#add)
-    # @return (see MatrixInterface#add)
+    # @param (see MDS::MatrixInterface#add)
+    # @return (see MDS::MatrixInterface#add)
     #
     def GSLInterface.add(m, n)
       m + n
@@ -106,8 +106,8 @@ module MDS
     #
     # Componentwise subtraction of two matrices.
     #
-    # @param (see MatrixInterface#sub)
-    # @return (see MatrixInterface#sub)
+    # @param (see MDS::MatrixInterface#sub)
+    # @return (see MDS::MatrixInterface#sub)
     #
     def GSLInterface.sub(m, n)
       m - n
@@ -116,8 +116,8 @@ module MDS
     #
     # Compute the eigen-decomposition of a real symmetric matrix.
     #
-    # @param (see MatrixInterface#ed)
-    # @return (see MatrixInterface#ed)
+    # @param (see MDS::MatrixInterface#ed)
+    # @return (see MDS::MatrixInterface#ed)
     #
     def GSLInterface.ed(m)
       eigen_values, eigen_vectors = ::GSL::Eigen::symmv(m)
