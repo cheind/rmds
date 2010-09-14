@@ -8,7 +8,7 @@
 # MDS - Ruby Multidimensional Scaling
 #
 module MDS
-  # current version of MDS
+  # Current version of MDS
   VERSION = '0.2'
 end
 

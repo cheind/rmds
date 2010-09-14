@@ -7,7 +7,6 @@
 require 'mds/matrix_interface'
 
 begin
-  require 'rubygems'
   require 'extendmatrix'
 rescue LoadError
   warn "\n**Notice: RubyAdapter requires \'extendmatrix\' which was not found."
