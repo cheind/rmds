@@ -89,6 +89,9 @@ module MDS
     # Default implementation invokes MatrixInterface#create and
     # sets diagonal elements through MatrixInterface#set.
     #
+    # @param *elements the diagonal elements
+    # @return the newly created matrix
+    #
     def MatrixInterface.create_diagonal(*elements)
       n = elements.length
       m = self.create(n, n, 0.0)
@@ -165,9 +168,9 @@ module MDS
     # Calculate the product of two matrices or
     # the product of a matrix and a scalar.
     #
-    # @param m first matrix of size NxM
-    # @param n second matrix of size MxK or scalar
-    # @return NxK matrix if second parameter is matrix, NxM matrix otherwise.
+    # @param m first matrix
+    # @param n second matrix or scalar
+    # @return matrix
     # @abstract
     #
     def MatrixInterface.prod(m, n)
@@ -177,11 +180,10 @@ module MDS
     #
     # Componentwise addition of two matrices.
     #
-    # @param m first matrix of size NxM
-    # @param n second matrix of size NxM
-    # @return NxM matrix
+    # @param m first matrix
+    # @param n second matrix
+    # @return the matrix
     # @abstract
-    #
     def MatrixInterface.add(m, n)
       raise NotImplementedError
     end
@@ -189,9 +191,9 @@ module MDS
     #
     # Componentwise subtraction of two matrices.
     #
-    # @param m first matrix of size NxM
-    # @param n second matrix of size NxM
-    # @return NxM matrix
+    # @param m first matrix
+    # @param n second matrix
+    # @return the matrix
     # @abstract
     #
     def MatrixInterface.sub(m, n)
@@ -201,8 +203,8 @@ module MDS
     #
     # Transpose a matrix.
     #
-    # @param m matrix to transpose of size NxM
-    # @return transposed matrix of size MxN
+    # @param m the matrix to transpose
+    # @return the transposed matrix
     # @abstract
     #
     def MatrixInterface.t(m)
