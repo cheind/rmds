@@ -21,8 +21,17 @@ In general, the embedding found is not unique. Any rotation or translation appli
 For implementation and examples see {MDS::Metric}
 
 [wiki_mds]: http://en.wikipedia.org/wiki/Multidimensional_scaling "Wikipedia - Multidimensional Scaling"
- 
-##Requirements
+
+## Requirements
+
+RMDS makes heavy use of linear algebra routines, but does not ship with linear algebra algorithms. Instead, RMDS has a non-intrusive adapter architecture to connect existing linear algebra packages to RMDS. For how-to details on providing new adapters for RMDS see {MDS::MatrixInterface}.
+
+Note that the performance of most RMDS algorithms is dominated by the algorithms and performance of the linear algebra backend used. 
+
+Currently the following linear algebra backends are supported
+
+- {MDS::StdlibInterface} - Connects Ruby's core matrix class to RMDS.
+- {MDS::GSLInterface} - Connects the GNU Scientific Library to RMDS.
 
 *RMDS* is tested on Ruby 1.8.7 and Ruby 1.9.1.
 
