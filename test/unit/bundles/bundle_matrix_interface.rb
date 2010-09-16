@@ -1,5 +1,5 @@
 #
-# rmds - Ruby Multidimensional Scaling Library
+# RMDS - Ruby Multidimensional Scaling Library
 # Copyright (c) Christoph Heindl, 2010
 # http://github.com/cheind/rmds
 #
