@@ -5,18 +5,18 @@
 #
 
 require './test/test_helper.rb'
-require './test/unit/bundles/bundle_euclidean_space.rb'
-require 'mds/interfaces/stdlib_interface'
+require './test/unit/bundles/bundle_metric.rb'
+require 'mds/interfaces/gsl_interface'
 
-class TestStdlibEuclideanSpace< Test::Unit::TestCase
-  include BundleEuclideanSpace
+class TestGSLMetric < Test::Unit::TestCase
+  include BundleMetric
   
   def setup
-    MDS::Matrix.push_interface(MDS::StdlibInterface)
+    MDS::Matrix.push_interface(MDS::GSLInterface)
   end
   
   def teardown
     MDS::Matrix.pop_interface
   end
-  
+
 end

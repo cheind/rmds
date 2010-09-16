@@ -42,14 +42,14 @@ namespace 'docs' do
   desc "Generate rdoc documentation"
   Rake::RDocTask.new do |rd|
     rd.rdoc_dir = "doc"
-    rd.rdoc_files.include('README', 'License', 'lib/**/*.rb')
+    rd.rdoc_files.include('README', 'License', 'lib/**/*.rb', 'examples/**/*.rb')
   end
   
   begin
     require 'yard'
     YARD::Rake::YardocTask.new do |t|
-      t.files   = ['lib/**/*.rb', '-', 'LICENSE.md'] 
-      t.options += ['--title', "RMDS #{MDS::VERSION} Documentation"]
+      t.files   = ['lib/**/*.rb', 'examples/**/*.rb', '-', 'LICENSE.md'] 
+      t.options = ['--no-cache', '--title', "RMDS #{MDS::VERSION} Documentation"]
     end
   rescue LoadError
     warn '**YARD is missing, disabling docs:yard task'
