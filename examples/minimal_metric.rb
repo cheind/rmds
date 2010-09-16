@@ -5,7 +5,9 @@
 #
 
 
-
+#
+# Examples for RMDS
+#
 module Examples
 
   #

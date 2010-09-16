@@ -15,6 +15,10 @@ module MDS
   # optimization. The performance of the algorithm highly depends on the 
   # implementation of the eigen-decomposition provided via {MDS::MatrixInterface}.
   #
+  # *Examples*
+  # - {Examples.minimal_metric}
+  # - {Examples.extended_metric}
+  #
   class Metric
     
     #

@@ -18,7 +18,7 @@ In metric multidimensional scaling the dissimilarities are assumed to be distanc
 
 In general, the embedding found is not unique. Any rotation or translation applied to found embedding does not change the pairwise distances.
 
-Implemented in {MDS::Metric}. Examples {MDS::Examples.minimal_metric}.
+For implementation and examples see {MDS::Metric}
 
 [wiki_mds]: http://en.wikipedia.org/wiki/Multidimensional_scaling "Wikipedia - Multidimensional Scaling"
  

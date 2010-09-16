@@ -4,6 +4,9 @@
 # http://github.com/cheind/rmds
 #
 
+#
+# Examples for RMDS
+#
 module Examples
   #
   # Illustrates usage of {MDS::Metric}
