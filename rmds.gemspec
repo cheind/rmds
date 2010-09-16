@@ -26,8 +26,6 @@ spec = Gem::Specification.new do |s|
   s.rdoc_options << '--title' << "RMDS v#{MDS::VERSION} -- Ruby Multidimensional Scaling Library"
   s.rdoc_options << '--main' << 'README.md' 
   s.rdoc_options << '-x' << 'test/*' << '-x' << 'examples/*'
-                 
-                 
 end
 
 
