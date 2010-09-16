@@ -39,7 +39,7 @@ module MDS
   #  MDS::Matrix.push_interface(YourMatrixInterface)
   #
   #  # Restore the previously active interface
-  #  MDS::Matrix.push_interface(YourMatrixInterface)
+  #  MDS::Matrix.pop_interface
   #
   # @see MDS::MatrixInterface
   #
