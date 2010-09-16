@@ -11,6 +11,10 @@ module MDS
   # the goal is to find an embedding in an Euclidean space that best preserves
   # the given distances.
   #
+  # This implementation gives an analytical solution and avoids iterative
+  # optimization. The performance of the algorithm highly depends on the 
+  # implementation of the eigen-decomposition provided via {MDS::MatrixInterface}.
+  #
   class Classic
     
     #

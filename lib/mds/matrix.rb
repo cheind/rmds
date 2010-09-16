@@ -269,5 +269,16 @@ module MDS
       )
     end
     
+    #
+    # Convert to string.
+    #
+    # Invokes #to_s from wrapped matrix.
+    #
+    # @return wrapped matrix as string.
+    #
+    def to_s
+      @m.to_s
+    end
+    
   end
 end
