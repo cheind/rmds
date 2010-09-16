@@ -21,7 +21,7 @@ module MDS
     # in its input matrix and the parameter passed. The parameter specifies
     # the percent of variance of distance to preserve in the Cartesian embedding.
     #
-    # @param [MDS::Matrix] d distance matrix of observations
+    # @param [MDS::Matrix] d squared Eulcidean distance matrix of observations
     # @param [Float] k the percent of variance of distances 
     # to preserve in embedding in the range [0..1].
     # @return [MDS::Matrix] the matrix containing the cartesian embedding.
@@ -36,7 +36,7 @@ module MDS
     #
     # Find a Cartesian embedding for the given distances.
     #
-    # @param [MDS::Matrix] d distance matrix of observations
+    # @param [MDS::Matrix] d squared Eulcidean distance matrix of observations
     # @param [Integer] dims the number of dimensions of the embedding.
     # @return [MDS::Matrix] the matrix containing the cartesian embedding.
     #
@@ -54,7 +54,7 @@ module MDS
     # coordinates by projecting the distances onto the basis formed by
     # the eigen-decomposition of the initial matrix. 
     #
-    # @param [MDS::Matrix] d squared distance matrix
+    # @param [MDS::Matrix] d squared Euclidean distance matrix
     # @param [Float] k percent [0..1] of variances in distances to keep in embedding.
     # @return [MDS::Matrix] containing the Cartesian embedding.
     #
@@ -73,7 +73,7 @@ module MDS
     # Transforms the distance matrix into an equivalent scalar product
     # matrix.
     # 
-    # @param [MDS::Matrix] d the distance matrix
+    # @param [MDS::Matrix] d the squared Euclidean distance matrix
     # @return [MDS::Matrix] the equivalent scalar product matrix.
     #
     def Classic.shift(d)
