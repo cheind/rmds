@@ -46,7 +46,7 @@ end
 
 if __FILE__ == $0
   $:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-  MDD::Examples.minimal_metric
+  MDS::Examples.minimal_metric
 end
 
 

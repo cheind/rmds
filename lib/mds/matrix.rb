@@ -270,6 +270,15 @@ module MDS
     end
     
     #
+    # Returns matrix as array of columns.
+    # 
+    # @return [Array<Array>] the array of columns where each column is an array
+    #
+    def columns
+      Matrix.interface.columns(@m) 
+    end
+    
+    #
     # Convert to string.
     #
     # Invokes #to_s from wrapped matrix.
@@ -277,7 +286,7 @@ module MDS
     # @return wrapped matrix as string.
     #
     def to_s
-      @m.to_s
+      Matrix.interface.to_s(@m) 
     end
     
   end

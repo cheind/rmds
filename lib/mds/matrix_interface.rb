@@ -280,6 +280,21 @@ module MDS
     end
     
     #
+    # Returns matrix as array of columns.
+    # 
+    # @return [Array<Array>] the array of columns where each column is an array
+    #
+    def MatrixInterface.columns(m)
+      a = Array.new(self.ncols(m)) {Array.new(self.nrows(m))}
+      for i in 0..self.nrows(m)-1 do
+        for j in 0..self.ncols(m)-1 do
+          a[j][i] = self.get(m, i, j)
+        end
+      end
+      a
+    end
+    
+    #
     # Calculate minor matrix.
     #
     # @param m matrix to calculate minor from
@@ -292,6 +307,17 @@ module MDS
       self.create_block(nrows, ncols) do |i,j|
         self.get(m, i + row_range.first, j + col_range.first)
       end
+    end
+    
+    #
+    # Convert to string.
+    #
+    # Invokes #to_s from wrapped matrix.
+    #
+    # @return wrapped matrix as string.
+    #
+    def to_s(m)
+      m.to_s
     end
     
   end
