@@ -133,7 +133,7 @@ module MDS
     # @param (see MatrixInterface#minor)
     # @return (see MatrixInterface#minor)
     #
-    def MatrixInterface.minor(m, row_range, col_range)
+    def LinalgInterface.minor(m, row_range, col_range)
       nrows = (row_range.last - row_range.first) + 1
       ncols = (col_range.last - col_range.first) + 1
       m.minor(row_range.first, col_range.first, nrows, ncols)
