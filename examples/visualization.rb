@@ -28,8 +28,7 @@ module MDS
       x = MDS::Matrix.create_rows(
         [1.0, 2.0], # Point A
         [4.0, 3.0], # Point B
-        [0.0, 1.0], # Point C
-        [1.0, 1.0]  # Point D
+        [0.0, 1.0] # Point C
       )
       
       d2 = MDS::Metric.squared_distances(x)
@@ -41,7 +40,7 @@ module MDS
         Gnuplot::Plot.new( gp ) do |plot|
           
           # Uncomment the following lines to write result to image.
-          # plot.term 'png'
+          # plot.term 'png size'
           # plot.output 'visualization.png'
           
           plot.title "Original Input and Result of MDS in Two Dimensions"  
