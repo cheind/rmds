@@ -35,6 +35,13 @@ namespace 'test' do
       t.verbose = false
       t.warning = false
     end
+    
+    desc 'Run unit tests for Stdlib interface'
+    Rake::TestTask.new('linalg') do |t|
+      t.pattern = FileList['test/unit/**/*linalg_*.rb']
+      t.verbose = false
+      t.warning = false
+    end
   end
 end
 

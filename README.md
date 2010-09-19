@@ -14,9 +14,7 @@ The following multidimensional scaling variants are offerred by *RMDS*
 
 ### Metric Multidimensional Scaling
 
-In metric multidimensional scaling the dissimilarities are assumed to be distances. The result of this multidimensional scaling variant are coordinates in the Euclidean space that explain the given distances.
-
-In general, the embedding found is not unique. Any rotation or translation applied to found embedding does not change the pairwise distances.
+In metric multidimensional scaling the dissimilarities are assumed to be distances. The result of this multidimensional scaling variant are coordinates in the Euclidean space that explain the given distances. In general, the embedding found is not unique. Any rotation or translation applied to found embedding does not change the pairwise distances.
 
 For implementation and examples see {MDS::Metric}
 

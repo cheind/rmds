@@ -264,10 +264,9 @@ module MDS
     #
     # Calculate minor matrix.
     #
-    #
     # @param m matrix to calculate minor from
-    # @param [Range] row_range row range
-    # @param [Range] col_range column range
+    # @param [Range] row_range linear row range with step size equal to one.
+    # @param [Range] col_range linear column range with step size equal to one.
     #
     def MatrixInterface.minor(m, row_range, col_range)
       nrows = (row_range.last - row_range.first) + 1
