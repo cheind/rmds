@@ -17,7 +17,7 @@ end
 module MDS
   
   #
-  # Common matrix interface for the Gnu Scientific Library.
+  # Matrix interface for the Gnu Scientific Library.
   #
   # To succesfully use this interface 'rbgsl' bindings for GSL are required.
   # For more information and installation instructions see 

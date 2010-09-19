@@ -18,7 +18,18 @@ end
 module MDS
   
   #
-  # Common matrix interface for Ruby's standard library Matrix class.
+  # Matrix interface for Ruby's standard library Matrix class.
+  #
+  # To succesfully use this interface 'extendmatrix' is required.
+  # For more information and installation instructions see 
+  # http://github.com/clbustos/extendmatrix
+  #
+  # The algorithm/implementation of the eigen-decomposition is 
+  # sub-optimal. It is therefore suitable only for small-scale problems.
+  # Timings are illustrated in the benchmark section of the {file:README}.
+  # 
+  # The reason this interface is still included in RMDS is the fact
+  # that it only depends on Ruby code and no native extensions.
   #
   class StdlibInterface < MatrixInterface
     

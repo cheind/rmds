@@ -10,27 +10,39 @@ module MDS
   # Provides a common interface to matrix operations.
   #
   # RMDS does not implement any linear algebra routine itself,
-  # but rather provides a non intrusive mechanism to
-  # plugin third party linear algebra packages.
-  #
-  # {MDS::MatrixInterface} defines a minimal set of required
-  # methods to be implemented for any linear algebra packages
+  # but rather provides a non intrusive mechanism to plugin third party 
+  # linear algebra packages. {MDS::MatrixInterface} defines a minimal 
+  # set of required methods to be implemented for any linear algebra packages
   # which are to be used with RMDS.
   #
-  # Making a linear algebra package compatible with RMDS is easy:
+  # Making linear algebra backends compatible with RMDS is easy:
   # simply subclass from {MDS::MatrixInterface} and implement all abstract
-  # methods.
-  #
-  # Not all of {MDS::MatrixInterface} methods are abstract, some
+  # methods. Not all of {MDS::MatrixInterface} methods are abstract, some
   # come with a default implementation. If your linear algebra package
   # does better at some of those methods, you should override them in your
   # {MDS::MatrixInterface} subclass.
   #
-  # Testing matrix interfaces is standardized through so called test bundles.
-  # Each test bundle contains a set of tests that work independently of the 
-  # matrix interface chosen.
-  #  
+  # RMDS helps you in testing your matrix interfaces through test bundles
+  # that ship with RMDS. Each test bundle contains a set of tests that work 
+  # independently of the matrix interface chosen. The following file unit
+  # tests a matrix interface.
   #
+  #  require 'test/unit'
+  #  require 'mds/test/bundles/bundle_matrix_interface.rb'
+  #  require 'mds/interfaces/linalg_interface'
+  #  
+  #  class TestLinalgInteface < Test::Unit::TestCase
+  #    include MDS::Test::BundleMatrixInterface
+  #    
+  #    def setup
+  #      MDS::Matrix.push_interface(MDS::LinalgInterface)
+  #    end
+  #    
+  #    def teardown
+  #      MDS::Matrix.pop_interface
+  #    end
+  #    
+  #  end
   #
   # @see MDS::Matrix
   class MatrixInterface
