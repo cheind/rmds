@@ -18,6 +18,10 @@ module MDS
   
   #
   # Common matrix interface for Linalg - Ruby Bindings for LAPACK.
+  #
+  # To succesfully use this interface 'Linalg' bindings for LAPCK/BLAS 
+  # are required. For more information and installation instructions see 
+  # http://rubyforge.org/projects/linalg/
   # 
   class LinalgInterface < MatrixInterface
     

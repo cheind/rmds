@@ -26,6 +26,12 @@ module MDS
   # does better at some of those methods, you should override them in your
   # {MDS::MatrixInterface} subclass.
   #
+  # Testing matrix interfaces is standardized through so called test bundles.
+  # Each test bundle contains a set of tests that work independently of the 
+  # matrix interface chosen.
+  #  
+  #
+  #
   # @see MDS::Matrix
   class MatrixInterface
   

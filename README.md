@@ -30,8 +30,9 @@ Currently the following linear algebra backends are supported
 
 - {MDS::StdlibInterface} - Connects Ruby's core matrix class to RMDS.
 - {MDS::GSLInterface} - Connects the GNU Scientific Library to RMDS.
+- {MDS::LinalgInterface} - Connects LAPACK and BLAS via Linalg to RMDS.
 
-*RMDS* is tested on Ruby 1.8.7 and Ruby 1.9.1.
+*RMDS* is tested on Ruby 1.8.7 and partially on Ruby 1.9.1.
 
 ##Documentation
 

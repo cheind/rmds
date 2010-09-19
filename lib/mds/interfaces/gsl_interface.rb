@@ -17,7 +17,11 @@ end
 module MDS
   
   #
-  # Common matrix interface for GSL types.
+  # Common matrix interface for the Gnu Scientific Library.
+  #
+  # To succesfully use this interface 'rbgsl' bindings for GSL are required.
+  # For more information and installation instructions see 
+  # http://rb-gsl.rubyforge.org/
   #
   class GSLInterface < MatrixInterface
     

@@ -5,11 +5,11 @@
 #
 
 require './test/test_helper.rb'
-require './test/unit/bundles/bundle_metric.rb'
+require 'mds/test/bundles/bundle_metric.rb'
 require 'mds/interfaces/linalg_interface'
 
 class TestLinalgMetric < Test::Unit::TestCase
-  include BundleMetric
+  include MDS::Test::BundleMetric
   
   def setup
     MDS::Matrix.push_interface(MDS::LinalgInterface)
