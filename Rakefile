@@ -36,20 +36,33 @@ namespace 'test' do
       t.warning = false
     end
     
-    desc 'Run unit tests for Stdlib interface'
+    desc 'Run unit tests for Linalg interface'
     Rake::TestTask.new('linalg') do |t|
       t.pattern = FileList['test/unit/**/*linalg_*.rb']
       t.verbose = false
       t.warning = false
     end
   end
+  
+  namespace 'bench' do
+  
+    desc 'Run all benchmarks'
+    task('all') do |t|
+      require 'test/benchmark/benchmark_metric'
+    end
+    
+  end
+  
 end
 
 namespace 'docs' do
+
   desc "Generate rdoc documentation"
   Rake::RDocTask.new do |rd|
     rd.rdoc_dir = "doc"
-    rd.rdoc_files.include('README', 'License', 'lib/**/*.rb', 'examples/**/*.rb')
+    rd.main = 'README.md'
+    rd.options << '--title' << "RMDS #{MDS::VERSION} Documentation"
+    rd.rdoc_files.include('README.md', 'LICENSE.md', 'lib/**/*.rb', 'examples/**/*.rb')
   end
   
   begin

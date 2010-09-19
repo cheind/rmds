@@ -100,7 +100,7 @@ module MDS
     #
     # @param m first matrix
     # @param n second matrix or scalar
-    # @return matrix
+    # @return the matrix product as newly allocated matrix
     # @abstract
     #
     def MatrixInterface.prod(m, n)
@@ -112,7 +112,7 @@ module MDS
     #
     # @param m first matrix
     # @param n second matrix
-    # @return the matrix
+    # @return the matrix addition as newly allocated matrix
     # @abstract
     def MatrixInterface.add(m, n)
       raise NotImplementedError
@@ -123,7 +123,7 @@ module MDS
     #
     # @param m first matrix
     # @param n second matrix
-    # @return the matrix
+    # @return the matrix subtraction as newly allocated matrix
     # @abstract
     #
     def MatrixInterface.sub(m, n)
@@ -134,7 +134,7 @@ module MDS
     # Transpose a matrix.
     #
     # @param m the matrix to transpose
-    # @return the transposed matrix
+    # @return the transposed matrix as newly allocated matrix
     # @abstract
     #
     def MatrixInterface.t(m)
