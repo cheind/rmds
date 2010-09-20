@@ -79,12 +79,22 @@ module MDS
           rescue NameError
             nil
           end
-        end
-        c.compact!
-        if c.empty?
-          @available.first
-        else
-          c.first
+        end.compact!
+        
+        c.length == 0 ? @available.first : c.first
+      end
+      
+      #
+      # Require all interfaces from path and conceal possible errors.
+      #
+      # @param String path the path or globbing expression to pass to require
+      #
+      def try_require(path)
+        Dir.glob(File.expand_path(path)) do |path|
+          begin
+            require path
+          rescue LoadError
+          end
         end
       end
             
