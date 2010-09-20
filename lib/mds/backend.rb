@@ -81,7 +81,7 @@ module MDS
           end
         end.compact!
         
-        c.length == 0 ? @available.first : c.first
+        (!c || c.length == 0) ? @available.first : c.first
       end
       
       #

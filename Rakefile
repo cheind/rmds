@@ -17,28 +17,28 @@ namespace 'test' do
   
     desc 'Run all unit tests'
     Rake::TestTask.new('all') do |t|
-      t.pattern = FileList['test/unit/**/*.rb']
+      t.pattern = FileList['test/unit/**/test_*.rb']
       t.verbose = false
       t.warning = false
     end
   
     desc 'Run unit tests for GSL interface'
     Rake::TestTask.new('gsl') do |t|
-      t.pattern = FileList['test/unit/**/*gsl_*.rb']
+      t.pattern = FileList['test/unit/**/test_*gsl_*.rb']
       t.verbose = false
       t.warning = false
     end
     
     desc 'Run unit tests for Stdlib interface'
     Rake::TestTask.new('std') do |t|
-      t.pattern = FileList['test/unit/**/*stdlib_*.rb']
+      t.pattern = FileList['test/unit/**/test_*stdlib_*.rb']
       t.verbose = false
       t.warning = false
     end
     
     desc 'Run unit tests for Linalg interface'
     Rake::TestTask.new('linalg') do |t|
-      t.pattern = FileList['test/unit/**/*linalg_*.rb']
+      t.pattern = FileList['test/unit/**/test_*linalg_*.rb']
       t.verbose = false
       t.warning = false
     end
