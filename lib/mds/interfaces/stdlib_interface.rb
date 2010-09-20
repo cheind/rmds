@@ -31,6 +31,8 @@ module MDS
   # The reason this interface is still included in RMDS is the fact
   # that it only depends on Ruby code and no native extensions.
   #
+  # Compatible with 'extendmatrix >= 0.3.1'
+  #
   class StdlibInterface < MatrixInterface
     
     #

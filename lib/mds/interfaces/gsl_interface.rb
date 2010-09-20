@@ -23,6 +23,8 @@ module MDS
   # For more information and installation instructions see 
   # http://rb-gsl.rubyforge.org/
   #
+  # Compatible with 'rb-gsl >= 1.14.3'
+  #
   class GSLInterface < MatrixInterface
     
     #

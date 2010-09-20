@@ -22,6 +22,8 @@ module MDS
   # To succesfully use this interface 'Linalg' bindings for LAPCK/BLAS 
   # are required. For more information and installation instructions see 
   # http://rubyforge.org/projects/linalg/
+  #
+  # Compatible with 'Linalg >= 1.0.0'
   # 
   class LinalgInterface < MatrixInterface
     
