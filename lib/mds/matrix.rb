@@ -44,7 +44,7 @@ module MDS
     # @return [Matrix] the newly created matrix.
     #
     def Matrix.create(n, m, s)
-      Matrix.new(MatrixInterface.interface.create(n, m, s))
+      Matrix.new(Backend.active.create(n, m, s))
     end
     
     #
@@ -55,7 +55,7 @@ module MDS
     # @return [Matrix] the newly created matrix.
     #
     def Matrix.create_block(n, m, &block)
-      Matrix.new(MatrixInterface.interface.create_block(n, m, &block))
+      Matrix.new(Backend.active.create_block(n, m, &block))
     end
     
     #
@@ -65,7 +65,7 @@ module MDS
     # @return [Matrix] the newly created matrix.
     #
     def Matrix.create_random(n, m, smin = -1.0, smax = 1.0)
-      Matrix.new(MatrixInterface.interface.create_random(n, m, smin, smax))
+      Matrix.new(Backend.active.create_random(n, m, smin, smax))
     end
     
     #
@@ -75,7 +75,7 @@ module MDS
     # @return [Matrix] the newly created matrix.
     #
     def Matrix.create_identity(n)
-      Matrix.new(MatrixInterface.interface.create_identity(n))
+      Matrix.new(Backend.active.create_identity(n))
     end  
 
     #
@@ -85,7 +85,7 @@ module MDS
     # @return [Matrix] the newly created matrix.
     #
     def Matrix.create_diagonal(*elements)
-      Matrix.new(MatrixInterface.interface.create_diagonal(*elements))
+      Matrix.new(Backend.active.create_diagonal(*elements))
     end
     
     #
@@ -95,7 +95,7 @@ module MDS
     # @return [Matrix] the newly created matrix.
     #
     def Matrix.create_rows(*rows)
-      Matrix.new(MatrixInterface.interface.create_rows(*rows))
+      Matrix.new(Backend.active.create_rows(*rows))
     end
     
     #
@@ -104,7 +104,7 @@ module MDS
     # @return number of rows in matrix
     #
     def nrows
-      MatrixInterface.interface.nrows(@m)
+      Backend.active.nrows(@m)
     end
     
     #
@@ -113,7 +113,7 @@ module MDS
     # @return number of columns in matrix
     #
     def ncols
-      MatrixInterface.interface.ncols(@m)
+      Backend.active.ncols(@m)
     end
     
     #
@@ -124,7 +124,7 @@ module MDS
     # @param [Float] s scalar value to set
     # 
     def []=(i, j, s)
-      MatrixInterface.interface.set(@m, i, j, s)
+      Backend.active.set(@m, i, j, s)
     end
     
     #
@@ -135,7 +135,7 @@ module MDS
     # @return [Float] value of element
     #
     def [](i,j)
-      MatrixInterface.interface.get(@m, i, j)
+      Backend.active.get(@m, i, j)
     end
     
     #
@@ -148,7 +148,7 @@ module MDS
     def *(other)
       is_ma = other.instance_of?(Matrix)
       Matrix.new(
-        MatrixInterface.interface.prod(@m, is_ma ? other.matrix : other)
+        Backend.active.prod(@m, is_ma ? other.matrix : other)
       )
     end
     
@@ -159,7 +159,7 @@ module MDS
     # @return [Matrix] the matrix.
     #
     def +(other)
-      Matrix.new(MatrixInterface.interface.add(@m, other.m))
+      Matrix.new(Backend.active.add(@m, other.m))
     end
     
     #
@@ -169,7 +169,7 @@ module MDS
     # @return [Matrix] the matrix.
     #
     def -(other)
-      Matrix.new(MatrixInterface.interface.sub(@m, other.m))
+      Matrix.new(Backend.active.sub(@m, other.m))
     end
     
     #
@@ -178,7 +178,7 @@ module MDS
     # @return [Matrix] the transposed matrix.
     #
     def t
-      Matrix.new(MatrixInterface.interface.t(@m))
+      Matrix.new(Backend.active.t(@m))
     end
     
     #
@@ -191,7 +191,7 @@ module MDS
     # @return [Array] the array containing the matrix of eigen-values and eigen-vector
     #
     def ed
-      MatrixInterface.interface.ed(@m).map {|m| Matrix.new(m) }
+      Backend.active.ed(@m).map {|m| Matrix.new(m) }
     end
     
     #
@@ -200,7 +200,7 @@ module MDS
     # @return [Array] diagonal elements as array.
     #
     def diagonals
-      MatrixInterface.interface.diagonals(@m)
+      Backend.active.diagonals(@m)
     end
     
     #
@@ -209,7 +209,7 @@ module MDS
     # @return [Float] trace of matrix
     #
     def trace
-      MatrixInterface.interface.trace(@m)
+      Backend.active.trace(@m)
     end
     
     #
@@ -221,7 +221,7 @@ module MDS
     #
     def minor(row_range, col_range)
       Matrix.new(
-        MatrixInterface.interface.minor(@m, row_range, col_range)
+        Backend.active.minor(@m, row_range, col_range)
       )
     end
     
@@ -231,7 +231,7 @@ module MDS
     # @return [Array<Array>] the array of columns where each column is an array
     #
     def columns
-      MatrixInterface.interface.columns(@m) 
+      Backend.active.columns(@m) 
     end
     
     #
@@ -242,7 +242,7 @@ module MDS
     # @return wrapped matrix as string.
     #
     def to_s
-      MatrixInterface.interface.to_s(@m) 
+      Backend.active.to_s(@m) 
     end
     
   end

@@ -16,6 +16,7 @@ $:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'mds/matrix_interface'
 require 'mds/matrix'
+require 'mds/backend'
 require 'mds/metric'
 
 

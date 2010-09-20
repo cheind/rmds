@@ -12,11 +12,11 @@ class TestLinalgInteface < Test::Unit::TestCase
   include MDS::Test::BundleMatrixInterface
   
   def setup
-    MDS::MatrixInterface.push_interface(MDS::LinalgInterface)
+    MDS::Backend.push_active(MDS::LinalgInterface)
   end
   
   def teardown
-    MDS::MatrixInterface.pop_interface
+    MDS::Backend.pop_active
   end
   
 end

@@ -35,11 +35,11 @@ module MDS
   #    include MDS::Test::BundleMatrixInterface
   #    
   #    def setup
-  #      MDS::MatrixInterface.push_interface(MDS::LinalgInterface)
+  #      MDS::Backend.push_active(MDS::LinalgInterface)
   #    end
   #    
   #    def teardown
-  #      MDS::MatrixInterface.pop_interface
+  #      MDS::Backend.pop_active
   #    end
   #    
   #  end
@@ -48,39 +48,22 @@ module MDS
   # default matrix interface, like so
   #  
   #  # Set active interface
-  #  MDS::MatrixInterface.interface = YourMatrixInterface
+  #  MDS::Backend.active = YourMatrixInterface
   #
   #  # Push onto interface stack and set active interface
-  #  MDS::MatrixInterface.push_interface(YourMatrixInterface)
+  #  MDS::Backend.push_active(YourMatrixInterface)
   #
   #  # Restore the previously active interface
-  #  MDS::MatrixInterface.pop_interface
+  #  MDS::Backend.pop_active
   #
-  # @see MDS::Matrix
+  # @see MDS::Matrix, MDS::Backend
   class MatrixInterface
   
-    # Stores the matrix interaces to use at class level
-    @mi = []
-    class << self; 
-      # 
-      # Access the active matrix interface.
-      #
-      def interface; @mi.first; end
-      
-      #
-      # Set the active matrix interface.
-      #
-      def interface=(i); @mi.pop; @mi.push(i); end
-
-      #
-      # Push matrix interface onto the stack and set it active.
-      #      
-      def push_interface(i); @mi.push(i); end
-      
-      #
-      # Deactivate current matrix interface by popping it from stack.
-      #
-      def pop_interface; @mi.pop(); end
+    #
+    # Record creation of a subclass of this class at the MDS::Backend
+    #
+    def MatrixInterface.inherited(subclass)
+      MDS::Backend.add(subclass)
     end
   
     #---------------------------------------

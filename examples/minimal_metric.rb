@@ -22,7 +22,7 @@ module MDS
 
       # Prepare the linear algebra backend to be used.
       require 'mds/interfaces/gsl_interface'
-      MDS::MatrixInterface.interface = MDS::GSLInterface
+      MDS::Backend.active = MDS::GSLInterface
 
       # The squared Euclidean distance matrix.
       d2 = MDS::Matrix.create_rows(

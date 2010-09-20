@@ -12,11 +12,11 @@ class TestGSLMetric < Test::Unit::TestCase
   include MDS::Test::BundleMetric
   
   def setup
-    MDS::MatrixInterface.push_interface(MDS::GSLInterface)
+    MDS::Backend.push_active(MDS::GSLInterface)
   end
   
   def teardown
-    MDS::MatrixInterface.pop_interface
+    MDS::Backend.pop_active
   end
 
 end
