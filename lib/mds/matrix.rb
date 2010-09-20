@@ -19,55 +19,11 @@ module MDS
   #   required interop methods.
   # * {MDS::Matrix} is a matrix adapter that binds to data provided by 
   #   a specialized {MDS::MatrixInterface} class and carries out all
-  #   computations through methods defined in {MDS::MatrixInterface}-
-  #   
-  # To successfully integrate and use a linear algebra package in RMDS, 
-  # the following two steps are necessary.
-  #
-  # * Subclass from {MDS::MatrixInterface} and implement at least all
-  #   abstract class methods.
-  # * Tell RMDS to use it by setting the default matrix interface.
-  #
-  # Subclassing is documented at {MDS::MatrixInterface}. The latter is 
-  # accomplished by setting system wide interface through one of the 
-  # following methods
-  #  
-  #  # Set active interface
-  #  MDS::Matrix.interface = YourMatrixInterface
-  #
-  #  # Push onto interface stack and set active interface
-  #  MDS::Matrix.push_interface(YourMatrixInterface)
-  #
-  #  # Restore the previously active interface
-  #  MDS::Matrix.pop_interface
+  #   computations through methods defined in {MDS::MatrixInterface}.
   #
   # @see MDS::MatrixInterface
   #
-  class Matrix
-    # Stores the matrix interaces to use at class level
-    @mi = []
-    class << self; 
-      # 
-      # Access the active matrix interface.
-      #
-      def interface; @mi.first; end
-      
-      #
-      # Set the active matrix interface.
-      #
-      def interface=(i); @mi.pop; @mi.push(i); end
-
-      #
-      # Push matrix interface onto the stack and set it active.
-      #      
-      def push_interface(i); @mi.push(i); end
-      
-      #
-      # Deactivate current matrix interface by popping it from stack.
-      #
-      def pop_interface; @mi.pop(); end
-    end
-  
+  class Matrix 
     # Wrapped matrix
     attr_reader :m
     alias :matrix :m
@@ -88,7 +44,7 @@ module MDS
     # @return [Matrix] the newly created matrix.
     #
     def Matrix.create(n, m, s)
-      Matrix.new(Matrix.interface.create(n, m, s))
+      Matrix.new(MatrixInterface.interface.create(n, m, s))
     end
     
     #
@@ -99,7 +55,7 @@ module MDS
     # @return [Matrix] the newly created matrix.
     #
     def Matrix.create_block(n, m, &block)
-      Matrix.new(Matrix.interface.create_block(n, m, &block))
+      Matrix.new(MatrixInterface.interface.create_block(n, m, &block))
     end
     
     #
@@ -109,7 +65,7 @@ module MDS
     # @return [Matrix] the newly created matrix.
     #
     def Matrix.create_random(n, m, smin = -1.0, smax = 1.0)
-      Matrix.new(Matrix.interface.create_random(n, m, smin, smax))
+      Matrix.new(MatrixInterface.interface.create_random(n, m, smin, smax))
     end
     
     #
@@ -119,7 +75,7 @@ module MDS
     # @return [Matrix] the newly created matrix.
     #
     def Matrix.create_identity(n)
-      Matrix.new(Matrix.interface.create_identity(n))
+      Matrix.new(MatrixInterface.interface.create_identity(n))
     end  
 
     #
@@ -129,7 +85,7 @@ module MDS
     # @return [Matrix] the newly created matrix.
     #
     def Matrix.create_diagonal(*elements)
-      Matrix.new(Matrix.interface.create_diagonal(*elements))
+      Matrix.new(MatrixInterface.interface.create_diagonal(*elements))
     end
     
     #
@@ -139,7 +95,7 @@ module MDS
     # @return [Matrix] the newly created matrix.
     #
     def Matrix.create_rows(*rows)
-      Matrix.new(Matrix.interface.create_rows(*rows))
+      Matrix.new(MatrixInterface.interface.create_rows(*rows))
     end
     
     #
@@ -148,7 +104,7 @@ module MDS
     # @return number of rows in matrix
     #
     def nrows
-      Matrix.interface.nrows(@m)
+      MatrixInterface.interface.nrows(@m)
     end
     
     #
@@ -157,7 +113,7 @@ module MDS
     # @return number of columns in matrix
     #
     def ncols
-      Matrix.interface.ncols(@m)
+      MatrixInterface.interface.ncols(@m)
     end
     
     #
@@ -168,7 +124,7 @@ module MDS
     # @param [Float] s scalar value to set
     # 
     def []=(i, j, s)
-      Matrix.interface.set(@m, i, j, s)
+      MatrixInterface.interface.set(@m, i, j, s)
     end
     
     #
@@ -179,7 +135,7 @@ module MDS
     # @return [Float] value of element
     #
     def [](i,j)
-      Matrix.interface.get(@m, i, j)
+      MatrixInterface.interface.get(@m, i, j)
     end
     
     #
@@ -192,7 +148,7 @@ module MDS
     def *(other)
       is_ma = other.instance_of?(Matrix)
       Matrix.new(
-        Matrix.interface.prod(@m, is_ma ? other.matrix : other)
+        MatrixInterface.interface.prod(@m, is_ma ? other.matrix : other)
       )
     end
     
@@ -203,7 +159,7 @@ module MDS
     # @return [Matrix] the matrix.
     #
     def +(other)
-      Matrix.new(Matrix.interface.add(@m, other.m))
+      Matrix.new(MatrixInterface.interface.add(@m, other.m))
     end
     
     #
@@ -213,7 +169,7 @@ module MDS
     # @return [Matrix] the matrix.
     #
     def -(other)
-      Matrix.new(Matrix.interface.sub(@m, other.m))
+      Matrix.new(MatrixInterface.interface.sub(@m, other.m))
     end
     
     #
@@ -222,7 +178,7 @@ module MDS
     # @return [Matrix] the transposed matrix.
     #
     def t
-      Matrix.new(Matrix.interface.t(@m))
+      Matrix.new(MatrixInterface.interface.t(@m))
     end
     
     #
@@ -235,7 +191,7 @@ module MDS
     # @return [Array] the array containing the matrix of eigen-values and eigen-vector
     #
     def ed
-      Matrix.interface.ed(@m).map {|m| Matrix.new(m) }
+      MatrixInterface.interface.ed(@m).map {|m| Matrix.new(m) }
     end
     
     #
@@ -244,7 +200,7 @@ module MDS
     # @return [Array] diagonal elements as array.
     #
     def diagonals
-      Matrix.interface.diagonals(@m)
+      MatrixInterface.interface.diagonals(@m)
     end
     
     #
@@ -253,7 +209,7 @@ module MDS
     # @return [Float] trace of matrix
     #
     def trace
-      Matrix.interface.trace(@m)
+      MatrixInterface.interface.trace(@m)
     end
     
     #
@@ -265,7 +221,7 @@ module MDS
     #
     def minor(row_range, col_range)
       Matrix.new(
-        Matrix.interface.minor(@m, row_range, col_range)
+        MatrixInterface.interface.minor(@m, row_range, col_range)
       )
     end
     
@@ -275,7 +231,7 @@ module MDS
     # @return [Array<Array>] the array of columns where each column is an array
     #
     def columns
-      Matrix.interface.columns(@m) 
+      MatrixInterface.interface.columns(@m) 
     end
     
     #
@@ -286,7 +242,7 @@ module MDS
     # @return wrapped matrix as string.
     #
     def to_s
-      Matrix.interface.to_s(@m) 
+      MatrixInterface.interface.to_s(@m) 
     end
     
   end

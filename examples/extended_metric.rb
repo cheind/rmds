@@ -18,7 +18,7 @@ module MDS
       
       # Prepare the linear algebra backend to be used.
       require 'mds/interfaces/stdlib_interface'
-      MDS::Matrix.interface = MDS::StdlibInterface
+      MDS::MatrixInterface.interface = MDS::StdlibInterface
     
       # Observations, usually unknown
       x = MDS::Matrix.create_rows(

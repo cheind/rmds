@@ -27,9 +27,9 @@ d = 2
 puts "-----------------"
 puts "Benchmarking RMDS for #{n} observations in #{d}-dimensional space"
 Benchmark.bm(10) do |x|
-  x.report("stdlib:") {MDS::Matrix.interface = MDS::StdlibInterface; run_benchmark(x,n,d)}
-  x.report("gsl:")    {MDS::Matrix.interface = MDS::GSLInterface; run_benchmark(x,n,d)}
-  x.report("linalg:") {MDS::Matrix.interface = MDS::LinalgInterface; run_benchmark(x,n,d)}
+  x.report("stdlib:") {MDS::MatrixInterface.interface = MDS::StdlibInterface; run_benchmark(x,n,d)}
+  x.report("gsl:")    {MDS::MatrixInterface.interface = MDS::GSLInterface; run_benchmark(x,n,d)}
+  x.report("linalg:") {MDS::MatrixInterface.interface = MDS::LinalgInterface; run_benchmark(x,n,d)}
 end
 
 n = 100
@@ -37,9 +37,9 @@ d = 5
 puts "-----------------"
 puts "Benchmarking RMDS for #{n} observations in #{d}-dimensional space"
 Benchmark.bm(10) do |x|
-  #x.report("stdlib:") {MDS::Matrix.interface = MDS::StdlibInterface; run_benchmark(x,n,d)}
-  x.report("gsl:")    {MDS::Matrix.interface = MDS::GSLInterface; run_benchmark(x,n,d)}
-  x.report("linalg:") {MDS::Matrix.interface = MDS::LinalgInterface; run_benchmark(x,n,d)}
+  #x.report("stdlib:") {MDS::MatrixInterface.interface = MDS::StdlibInterface; run_benchmark(x,n,d)}
+  x.report("gsl:")    {MDS::MatrixInterface.interface = MDS::GSLInterface; run_benchmark(x,n,d)}
+  x.report("linalg:") {MDS::MatrixInterface.interface = MDS::LinalgInterface; run_benchmark(x,n,d)}
 end
 
 n = 1000
@@ -47,7 +47,7 @@ d = 10
 puts "-----------------"
 puts "Benchmarking RMDS for #{n} observations in #{d}-dimensional space"
 Benchmark.bm(10) do |x|
-  #x.report("stdlib:") {MDS::Matrix.interface = MDS::StdlibInterface; run_benchmark(x,n,d)}
-  x.report("gsl:")    {MDS::Matrix.interface = MDS::GSLInterface; run_benchmark(x,n,d)}
-  x.report("linalg:") {MDS::Matrix.interface = MDS::LinalgInterface; run_benchmark(x,n,d)}
+  #x.report("stdlib:") {MDS::MatrixInterface.interface = MDS::StdlibInterface; run_benchmark(x,n,d)}
+  x.report("gsl:")    {MDS::MatrixInterface.interface = MDS::GSLInterface; run_benchmark(x,n,d)}
+  x.report("linalg:") {MDS::MatrixInterface.interface = MDS::LinalgInterface; run_benchmark(x,n,d)}
 end

@@ -22,7 +22,7 @@ module MDS
       require 'mds/interfaces/stdlib_interface'
       require 'gnuplot'
       
-      MDS::Matrix.interface = MDS::StdlibInterface
+      MDS::MatrixInterface.interface = MDS::StdlibInterface
 
       # Input
       x = MDS::Matrix.create_rows(

@@ -20,7 +20,7 @@ module MDS
   # methods. Not all of {MDS::MatrixInterface} methods are abstract, some
   # come with a default implementation. If your linear algebra package
   # does better at some of those methods, you should override them in your
-  # {MDS::MatrixInterface} subclass.
+  # interface subclass.
   #
   # RMDS helps you in testing your matrix interfaces through test bundles
   # that ship with RMDS. Each test bundle contains a set of tests that work 
@@ -35,17 +35,53 @@ module MDS
   #    include MDS::Test::BundleMatrixInterface
   #    
   #    def setup
-  #      MDS::Matrix.push_interface(MDS::LinalgInterface)
+  #      MDS::MatrixInterface.push_interface(MDS::LinalgInterface)
   #    end
   #    
   #    def teardown
-  #      MDS::Matrix.pop_interface
+  #      MDS::MatrixInterface.pop_interface
   #    end
   #    
   #  end
   #
+  # Finally, tell RMDS to use your matrix interface by setting the 
+  # default matrix interface, like so
+  #  
+  #  # Set active interface
+  #  MDS::MatrixInterface.interface = YourMatrixInterface
+  #
+  #  # Push onto interface stack and set active interface
+  #  MDS::MatrixInterface.push_interface(YourMatrixInterface)
+  #
+  #  # Restore the previously active interface
+  #  MDS::MatrixInterface.pop_interface
+  #
   # @see MDS::Matrix
   class MatrixInterface
+  
+    # Stores the matrix interaces to use at class level
+    @mi = []
+    class << self; 
+      # 
+      # Access the active matrix interface.
+      #
+      def interface; @mi.first; end
+      
+      #
+      # Set the active matrix interface.
+      #
+      def interface=(i); @mi.pop; @mi.push(i); end
+
+      #
+      # Push matrix interface onto the stack and set it active.
+      #      
+      def push_interface(i); @mi.push(i); end
+      
+      #
+      # Deactivate current matrix interface by popping it from stack.
+      #
+      def pop_interface; @mi.pop(); end
+    end
   
     #---------------------------------------
     # Required

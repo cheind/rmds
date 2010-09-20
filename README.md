@@ -34,7 +34,7 @@ The following successfully calculates a two dimensional Cartesian embedding for 
     require 'mds/interfaces/gsl_interface'
     
     # Tell RMDS the linear algebra backend to be used.
-    MDS::Matrix.interface = MDS::GSLInterface
+    MDS::MatrixInterface.interface = MDS::GSLInterface
     
     # The squared Euclidean distance matrix.
     d2 = MDS::Matrix.create_rows(

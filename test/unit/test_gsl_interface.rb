@@ -12,11 +12,11 @@ class TestGSLInterface < Test::Unit::TestCase
   include MDS::Test::BundleMatrixInterface
   
   def setup
-    MDS::Matrix.push_interface(MDS::GSLInterface)
+    MDS::MatrixInterface.push_interface(MDS::GSLInterface)
   end
   
   def teardown
-    MDS::Matrix.pop_interface
+    MDS::MatrixInterface.pop_interface
   end
   
 end
