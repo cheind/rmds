@@ -13,6 +13,11 @@ module MDS
     #
     # Visualization of air distances between major european cities.
     #
+    # Compare result with http://bit.ly/bNdf0e but keep in mind that
+    #
+    # - MDS finds an embedding up to rotation and translation
+    # - The input matrix contains air-distances and the map shows correct goedesic distances.
+    #
     def Examples.visualization_european_cities
       require 'mds'
       require 'gnuplot'
