@@ -18,5 +18,5 @@ require 'mds/matrix_interface'
 require 'mds/matrix'
 require 'mds/backend'
 require 'mds/metric'
-
+require 'mds/io'
 

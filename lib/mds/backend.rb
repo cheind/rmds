@@ -89,7 +89,7 @@ module MDS
       #
       # @param String path the path or globbing expression to pass to require
       #
-      def try_require(path)
+      def try_require(path = File.join(File.dirname(__FILE__), 'interfaces', '*interface.rb'))
         Dir.glob(File.expand_path(path)) do |path|
           begin
             require path
