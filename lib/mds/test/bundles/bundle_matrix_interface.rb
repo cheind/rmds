@@ -116,6 +116,11 @@ module MDS
         assert_equal([[2.0, 1.0], [3.0, 4.0], [4.0, 3.0]], a.columns)
       end
       
+      def test_rows
+        a = MDS::Matrix.create_rows([2.0, 3.0, 4.0], [1.0, 4.0, 3.0])
+        assert_equal([[2.0, 3.0, 4.0], [1.0, 4.0, 3.0]], a.rows)
+      end
+      
       #----------------------------
       # Matrix operations
       #----------------------------

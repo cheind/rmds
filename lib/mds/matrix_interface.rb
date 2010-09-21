@@ -314,6 +314,21 @@ module MDS
     end
     
     #
+    # Returns matrix as array of rows.
+    # 
+    # @return [Array<Array>] the array of rows where each rows is an array
+    #
+    def MatrixInterface.rows(m)
+      a = Array.new(self.nrows(m)) {Array.new(self.ncols(m))}
+      for i in 0..self.nrows(m)-1 do
+        for j in 0..self.ncols(m)-1 do
+          a[i][j] = self.get(m, i, j)
+        end
+      end
+      a
+    end
+    
+    #
     # Calculate minor matrix.
     #
     # @param m matrix to calculate minor from

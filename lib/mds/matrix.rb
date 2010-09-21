@@ -235,6 +235,15 @@ module MDS
     end
     
     #
+    # Returns matrix as array of rows.
+    # 
+    # @return [Array<Array>] the array of rows where each row is an array
+    #
+    def rows
+      Backend.active.rows(@m) 
+    end
+    
+    #
     # Convert to string.
     #
     # Invokes #to_s from wrapped matrix.
