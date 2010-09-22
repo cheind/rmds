@@ -104,6 +104,13 @@ The following example works on a distance matrix which originates from air dista
       end
     end
 
+The following image show the result of the above script. A map is shown in a separate image for comparison. 
+
+Keep in mind that 
+ 
+ - MDS finds an embedding up to rotation and translation
+ - The input matrix contains air-distances and the map shows correct goedesic distances.
+
 ![Result of MDS](http://github.com/cheind/rmds/raw/master/docs/readme_mds_cities.png)    
 ![Result of Mapping](http://github.com/cheind/rmds/raw/master/docs/readme_cities.png)
     
