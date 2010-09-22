@@ -20,7 +20,7 @@ module MDS
     #
     def Examples.visualization_european_cities
       require 'mds'
-      require 'gnuplot'
+      require 'gnuplot' # gem install gnuplot
       
       # Load backend
       MDS::Backend.try_require
@@ -40,9 +40,13 @@ module MDS
           nil
         end
       end
-      d2 = MDS::Matrix.create_rows(*rows)
       
+      # Invoke MDS
+
+      d2 = MDS::Matrix.create_rows(*rows)      
       proj = MDS::Metric.projectk(d2, 0.9) 
+      
+      # Plot results
       
       Gnuplot.open do |gp|
         Gnuplot::Plot.new( gp ) do |plot|
