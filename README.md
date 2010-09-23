@@ -167,6 +167,11 @@ RMDS itself does not have any dependencies except Ruby. Each matrix interface is
 
 RMDS is tested against Ruby 1.8.7 and Ruby 1.9.1.
 
+## References
+
+- (Modern Multidimensional Scaling)[http://people.few.eur.nl/groenen/mmds/]
+- (Multidimensional Scaling)[http://webcourse.cs.technion.ac.il/236861/Winter2007-2008/ho/WCFiles/multidimensional_scaling.pdf]
+
 ## License
 
 *RMDS* is copyright 2010 Christoph Heindl. It is free software, and may be redistributed under the terms specified in the {file:LICENSE.md} file.
