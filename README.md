@@ -157,7 +157,7 @@ Because of documented limitations of {MDS::StdlibInterface} timings for this int
 Choose your version
 
 - Documentation of [master branch](http://rdoc.info/github/cheind/rmds/master/frames)
-- Documentation of [release RMDS 0.2](http://rdoc.info/gems/rmds/0.2/frames)
+- Documentation of [release 0.2](http://rdoc.info/gems/rmds/0.2/frames)
 
 An up-to-date documentation of the current master branch can be found [here](http://rdoc.info/github/cheind/rmds/master/frames).
 
