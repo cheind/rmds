@@ -12,7 +12,7 @@ In essence, multidimensional scaling takes a matrix of similarities or dissimila
 
 ## Metric Multidimensional Scaling
 
-RMDS implements metric multidimensional scaling in which dissimilarities are assumed to be distances. The result of this multidimensional scaling variant are coordinates in the Euclidean space that explain the given distances. In general, the embedding found is not unique. Any rotation or translation applied to found embedding does not change the pairwise distances.
+RMDS implements metric multidimensional scaling in which dissimilarities are assumed to be distances. The result of this multidimensional scaling variant are coordinates in the Euclidean space that explain the given distances. In general, the embedding found is not unique as any rigid transformation (rotation, translation, reflection) applied to the resulting coordinates does not change the pairwise distances.
 
 ## Linear Algebra Backends
 
