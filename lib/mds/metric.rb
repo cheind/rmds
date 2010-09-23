@@ -60,7 +60,7 @@ module MDS
     # corresponds to a matrix row and is provided in Cartesian coordinates.
     #
     # The result is a real symmetric matrix of size +NxN+, where +N+ is the
-    # number of observations in the input. Each element +(i,j)+ in this matrix
+    # number of observations in the input. Each element (i,j) in this matrix
     # corresponds to the squared distance between the i-th and j-th observation
     # in the input matrix.
     #
