@@ -26,6 +26,18 @@ Currently the following linear algebra backends are supported
 - {MDS::GSLInterface} - Connects the GNU Scientific Library to RMDS.
 - {MDS::LinalgInterface} - Connects LAPACK and BLAS via Linalg to RMDS.
 
+## Installation
+
+RMDS is available as gem and as git repository. To install RMDS using Ruby gems invoke
+
+    > gem install rmds
+    
+or clone the git repository
+
+    > git clone git://github.com/cheind/rmds.git
+   
+If you like to contribute, drop note at christoph.heindl@gmail.com
+
 ## Examples
 
 The following successfully calculates a two dimensional Cartesian embedding for a given distance matrix.
@@ -140,15 +152,15 @@ Note that the each test involves creation of the observations randomly, calculat
     
 Because of documented limitations of {MDS::StdlibInterface} timings for this interface are shown only for the smallest of the three scenarios. Neither GSL nor LAPACK/BLAS was re-compiled for optimal performance.
 
+## Documentation
+
+An up-to-date documentation of the current master branch can be found [here](http://rdoc.info/github/cheind/rmds/master/frames).
+
 ## Requirements
 
 RMDS itself does not have any dependencies except Ruby. Each matrix interface is likley to depend on one or more external projects, such as bindings and native libraries.
 
 RMDS is tested against Ruby 1.8.7 and Ruby 1.9.1.
-
-## Documentation
-
-An up-to-date documentation of the current master branch can be found [here](http://rdoc.info/github/cheind/rmds/master/frames).
 
 ## License
 
