@@ -12,7 +12,7 @@ class TestBackend < Test::Unit::TestCase
     def startup
       @before = MDS::Backend.available.clone
       MDS::Backend.available.clear
-      MDS::Backend.try_require('./test/unit/dummy_interfaces.*')
+      MDS::Backend.load_backends('./test/unit/dummy_interfaces.*')
     end
     
     def shutdown

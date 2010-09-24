@@ -68,8 +68,8 @@ The following example works on a distance matrix which originates from air dista
     require 'mds'
     require 'gnuplot' # gem install gnuplot
     
-    # Load backend
-    MDS::Backend.try_require
+    # Load backends
+    MDS::Backend.load_backends
     MDS::Backend.active = MDS::Backend.first
     puts "Using backend #{MDS::Backend.active}"
     

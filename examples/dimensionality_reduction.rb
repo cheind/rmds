@@ -17,7 +17,7 @@ module MDS
     def Examples.dimensionality_reduction
       require 'mds'
       
-      MDS::Backend.try_require
+      MDS::Backend.load_backends
       MDS::Backend.active = MDS::Backend.first
       puts "Using backend #{MDS::Backend.active}"
       

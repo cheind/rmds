@@ -23,7 +23,7 @@ module MDS
       require 'gnuplot' # gem install gnuplot
       
       # Load backend
-      MDS::Backend.try_require
+      MDS::Backend.load_backends
       MDS::Backend.active = MDS::Backend.first
       puts "Using backend #{MDS::Backend.active}"
       

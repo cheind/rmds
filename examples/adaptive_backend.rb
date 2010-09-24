@@ -22,7 +22,7 @@ module MDS
       argv << './lib/mds/interfaces/*.rb'
       
       while !argv.empty?
-        MDS::Backend.try_require(argv.shift)
+        MDS::Backend.load_backends(argv.shift)
       end
       
       # Select the first available interface.

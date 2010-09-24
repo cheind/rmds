@@ -9,6 +9,9 @@ module MDS
   # Defines the preferrred order of interfaces.
   PREFERRED_INTERFACE_ORDER = ['MDS::LinalgInterface', 'MDS::GSLInterface', 'MDS::StdlibInterface']
   
+  # Globbing pattern to find backends shipped with RMDS
+  DEFAULT_BACKEND_PATHS = File.join(File.dirname(__FILE__), 'interfaces', '*interface.rb')
+  
   #
   # Provides a common interface to matrix operations.
   #
@@ -51,7 +54,11 @@ module MDS
       # 
       # Add available interface class.
       #
-      # Automatically called when interface is required.
+      # This method is automatically called once a {MDS::MatrixInterface} subclass
+      # is loaded. {MDS::MatrixInterface} overrides #{Object.inherited} to inform
+      # {MDS::Backend} of new class.
+      #
+      # @param [MatrixInterface] i the concrete interface class
       #
       def add(i)
         @available << i
@@ -59,6 +66,8 @@ module MDS
       
       #
       # Return available interface classes.
+      #
+      # @return the available interface classes.
       #
       def available
         @available
@@ -69,6 +78,8 @@ module MDS
       #
       # If no interface class matches a string in +search_order+,
       # the first available interface is returned.
+      #
+      # @param search_order order of preferred backend names.
       #
       def first(search_order = MDS::PREFERRED_INTERFACE_ORDER)
         c = search_order.map do |name|
@@ -85,11 +96,11 @@ module MDS
       end
       
       #
-      # Require all interfaces from path and conceal possible errors.
+      # Require all interfaces from path and conceal load possible errors.
       #
       # @param String path the path or globbing expression to pass to require
       #
-      def try_require(path = File.join(File.dirname(__FILE__), 'interfaces', '*interface.rb'))
+      def load_backends(path = MDS::DEFAULT_BACKEND_PATHS)
         Dir.glob(File.expand_path(path)) do |path|
           begin
             require path
