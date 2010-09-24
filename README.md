@@ -159,8 +159,6 @@ Choose your version
 - Documentation of [master branch](http://rdoc.info/github/cheind/rmds/master/frames)
 - Documentation of [release 0.2](http://rdoc.info/gems/rmds/0.2/frames)
 
-An up-to-date documentation of the current master branch can be found [here](http://rdoc.info/github/cheind/rmds/master/frames).
-
 ## Requirements
 
 RMDS itself does not have any dependencies except Ruby. Each matrix interface is likley to depend on one or more external projects, such as bindings and native libraries.
@@ -169,8 +167,8 @@ RMDS is tested against Ruby 1.8.7 and Ruby 1.9.1.
 
 ## References
 
-- (Modern Multidimensional Scaling)[http://people.few.eur.nl/groenen/mmds/]
-- (Multidimensional Scaling)[http://webcourse.cs.technion.ac.il/236861/Winter2007-2008/ho/WCFiles/multidimensional_scaling.pdf]
+- [Modern Multidimensional Scaling](http://people.few.eur.nl/groenen/mmds/)
+- [Multidimensional Scaling](http://webcourse.cs.technion.ac.il/236861/Winter2007-2008/ho/WCFiles/multidimensional_scaling.pdf)
 
 ## License
 
